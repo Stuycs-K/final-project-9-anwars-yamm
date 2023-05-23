@@ -1,6 +1,6 @@
 # Work Log
 
-## GROUP MEMBER 1
+## GROUP MEMBER 1(Shaon)
 
 ### date x
 
@@ -11,11 +11,11 @@ info
 info
 
 
-## GROUP MEMBER 2
+## GROUP MEMBER 2(Mason)
 
-### date x
+### date 5/22
 
-info
+added dictionary
 
 ### date y
 
