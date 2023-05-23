@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Board{
   private Letter[][] board;
   private Inventory[] users;

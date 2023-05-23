@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 public class Inventory{
-  private Letter[] hand;
+  //array list instead
+  private ArrayList<Letter> hand;
   
-  public Inventory(Letter[] h){
+  public Inventory(ArrayList<Letter> h){
     hand = h;
   }
 }

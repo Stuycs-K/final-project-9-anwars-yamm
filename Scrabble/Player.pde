@@ -1,12 +1,11 @@
+import java.util.ArrayList;
 public class Player extends Inventory{
-  private char letter;
-  private int status;
-  private int[] coord;
+  //array list instead of array
   private int size;
   private Letter movingLetter;
   
-  public Player(int s, Letter m){
-    super(letter, status, coord);
+  public Player(int s, Letter m, ArrayList<Letter> h){
+    super(h);
     size = s;
     movingLetter = m;
   }

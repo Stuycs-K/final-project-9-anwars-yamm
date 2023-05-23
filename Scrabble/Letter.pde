@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Letter{
   private char letter;
   private int status;
