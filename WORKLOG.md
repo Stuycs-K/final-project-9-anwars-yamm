@@ -2,13 +2,13 @@
 
 ## GROUP MEMBER 1(Shaon)
 
-### date x
+### date 5/22
 
-info
+Wrote constructors for each class
 
-### date y
+### date 5/23
 
-info
+Finished writing the Letter class
 
 
 ## GROUP MEMBER 2(Mason)
