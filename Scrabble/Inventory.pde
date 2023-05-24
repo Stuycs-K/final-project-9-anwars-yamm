@@ -6,4 +6,18 @@ public class Inventory{
   public Inventory(ArrayList<Letter> h){
     hand = h;
   }
+  
+  public void add(Letter h){
+    hand.add(h);
+  }
+  
+  public Letter remove(){
+    return hand.remove(hand.size() - 1);
+  }
+  
+  public void hand(ArrayList<Letter> newHand){
+    hand = newHand;
+  }
+  
+  
 }

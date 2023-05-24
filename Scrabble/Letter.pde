@@ -25,4 +25,13 @@ public class Letter{
   public char getLetter(){
     return letter;
   }
+  
+  void display(int x, int y){
+    c = color(210, 180, 140);
+    fill(c);
+    square(x, y, 10);
+    d = color(0);
+    fill(d);
+    text(letter, x, y);
+  }
 }
