@@ -21,29 +21,21 @@ public class Board{
   
  public int wordCheckReturn(String word){
    String line;
-   System.out.println("mark0");
    BufferedReader dict = createReader("dictionary.txt");
-   System.out.println("mark1");
    try{
      line = dict.readLine();
    }
    catch(IOException e){
-     System.out.println(e);
      line = null;
    }
    while(line!=null){
      if(qualifies(word,line)){
        return(wordRawScore(word));
      }
-     if(word.equals(line)){
-       System.out.println("shortcut");
-       return(wordRawScore(word));
-     }
      try{
        line = dict.readLine();
      }
      catch(IOException e){
-       System.out.println(e);
        line = null;
      }
    }
