@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 void setup(){
    System.out.println("hello");
-   System.out.println(Board.wordCheckReturn("HELLO"));
+   Board test = new Board();
+   System.out.println(test.wordCheckReturn("HELLO"));
 }
 
 void draw(){

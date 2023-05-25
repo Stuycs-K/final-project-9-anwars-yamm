@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-public static class Board{
+public class Board{
   private Letter[][] board;
   private Inventory[] users;
   private int[][] wordMulti;
@@ -16,14 +16,16 @@ public static class Board{
     LetterMulti = l;
     activeHand = a;
   }
-  
+  public Board(){
+  }
   
  public int wordCheckReturn(String word){
+   String line;
    System.out.println("mark0");
-   BufferedReader dict = createReader("positions.txt");
+   BufferedReader dict = createReader("dictionary.txt");
    System.out.println("mark1");
    try{
-     String line = reader.readLine();
+     line = dict.readLine();
    }
    catch(IOException e){
      System.out.println(e);
@@ -38,7 +40,7 @@ public static class Board{
        return(wordRawScore(word));
      }
      try{
-       String line = reader.readLine();
+       line = dict.readLine();
      }
      catch(IOException e){
        System.out.println(e);
@@ -47,7 +49,7 @@ public static class Board{
    }
     return -1;
   }
-  public static boolean qualifies(String input, String ref){
+  public boolean qualifies(String input, String ref){
   if((input.length())!=(ref.length())) return false;
   for(int i = 0; i < input.length(); i++){
     char iChar = input.charAt(i);
@@ -60,7 +62,7 @@ public static class Board{
   }
   return true;
 }
-public static int wordRawScore(String word){
+public int wordRawScore(String word){
   int totalScore = 0;
   for(int i = 0; i < word.length(); i++)
   {
