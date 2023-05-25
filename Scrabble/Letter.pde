@@ -26,12 +26,11 @@ public class Letter{
     return letter;
   }
   
-  void display(int x, int y){
-    c = color(210, 180, 140);
-    fill(c);
-    square(x, y, 10);
-    d = color(0);
-    fill(d);
-    text(letter, x, y);
+  public void display(){
+    fill(210, 180, 140);
+    square(coord[0], coord[1], 20);
+    fill(0);
+    text(letter, coord[0] + 6.3, coord[1] + 13);
   }
+  
 }
