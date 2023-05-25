@@ -17,28 +17,34 @@ public static class Board{
     activeHand = a;
   }
   
- public static int wordCheckReturn(String word){
+  
+ public int wordCheckReturn(String word){
    System.out.println("mark0");
-    try{
-       System.out.println("mark1");
-       File dict = new File("dictionary.txt");
-       System.out.println("mark2");
-       Scanner input = new Scanner(dict);
-       System.out.println("mark3");
-       while(input.hasNextLine()){
-          String line = input.nextLine();
-          if(qualifies(word,line)){
-            return(wordRawScore(word));
-          }
-          if(word.equals(line)){
-            System.out.println("shortcut");
-            return(wordRawScore(word));
-          }
-       }
-    }
-    catch(FileNotFoundException ex){
-      System.out.println(ex);
-    }
+   BufferedReader dict = createReader("positions.txt");
+   System.out.println("mark1");
+   try{
+     String line = reader.readLine();
+   }
+   catch(IOException e){
+     System.out.println(e);
+     line = null;
+   }
+   while(line!=null){
+     if(qualifies(word,line)){
+       return(wordRawScore(word));
+     }
+     if(word.equals(line)){
+       System.out.println("shortcut");
+       return(wordRawScore(word));
+     }
+     try{
+       String line = reader.readLine();
+     }
+     catch(IOException e){
+       System.out.println(e);
+       line = null;
+     }
+   }
     return -1;
   }
   public static boolean qualifies(String input, String ref){
