@@ -17,6 +17,14 @@ info
 
 added dictionary
 
-### date y
+### date 5/23
 
-info
+started on methods for determining the score of a word
+
+### date 5/24
+
+worked on the importation method of the dictionary and how it works with the scoring method
+
+### date 5/25
+
+added some tests for scoring words, scoring method complies
