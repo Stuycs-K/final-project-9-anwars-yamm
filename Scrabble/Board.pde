@@ -13,12 +13,50 @@ public class Board{
     board = b;
     users = u;
     wordMulti = w;
-    LetterMulti = l;
+    LetterMulti = setUpWordMulti();
     activeHand = a;
   }
   public Board(){
+    LetterMulti = setUpWordMulti();
   }
-  
+ private int[][] setUpWordMulti(){
+   int[][] multi = new int[15][15];
+   for(int row = 0; row<multi.length; row++){
+     for(int col = 0; col<multi[1].length; col++){
+       multi[row][col]=1;
+     }
+   }
+   multi[0][0]=3;
+   multi[0][7]=3;
+   multi[0][14]=3;
+   multi[7][0]=3;
+   multi[7][14]=3;
+   multi[14][0]=3;
+   multi[14][7]=3;
+   multi[14][14]=3;
+   
+   multi[1][1]=2;
+   multi[2][2]=2;
+   multi[3][3]=2;
+   multi[4][4]=2;
+   
+   multi[1][13]=2;
+   multi[2][12]=2;
+   multi[3][11]=2;
+   multi[4][10]=2;
+   
+   multi[10][4]=2;
+   multi[11][3]=2;
+   multi[12][2]=2;
+   multi[13][1]=2;
+   
+   multi[10][10]=2;
+   multi[11][11]=2;
+   multi[12][12]=2;
+   multi[13][13]=2;
+   return multi;
+ }
+
  public int wordCheckReturn(String word){
    String line;
    BufferedReader dict = createReader("dictionary.txt");
@@ -69,4 +107,5 @@ public int wordRawScore(String word){
   }
   return totalScore;
 }
+
 }
