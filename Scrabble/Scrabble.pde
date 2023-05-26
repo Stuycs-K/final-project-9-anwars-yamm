@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 void setup(){
    Board test = new Board();
@@ -6,6 +7,13 @@ void setup(){
    System.out.println(test.wordCheckReturn("QUERY"));
    System.out.println(test.wordCheckReturn("***"));
    System.out.println(test.wordCheckReturn("B*XRT"));
+   for(int[] i : test.wordMulti){
+     System.out.println(Arrays.toString(i));
+   }
+   System.out.println(test.calcWordMulti(0,0,0,14));
+   System.out.println(test.calcWordMulti(0,14,0,0));
+   System.out.println(test.calcWordMulti(4,4,10,4));
+   
 }
 
 void draw(){

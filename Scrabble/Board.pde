@@ -13,11 +13,11 @@ public class Board{
     board = b;
     users = u;
     wordMulti = w;
-    LetterMulti = setUpWordMulti();
+    LetterMulti = l;
     activeHand = a;
   }
   public Board(){
-    LetterMulti = setUpWordMulti();
+    wordMulti = setUpWordMulti();
   }
  private int[][] setUpWordMulti(){
    int[][] multi = new int[15][15];
@@ -56,35 +56,35 @@ public class Board{
    multi[13][13]=2;
    return multi;
  }
- private int calcWordMulti(int x1, int y1, int x2, int y2){
+ private int calcWordMulti(int col1, int row1, int col2, int row2){
    int multi=1;
-   int deltaX = Math.abs(x2-x1);
-   int deltaY = Math.abs(y2-x1);
-   int xbig;
-   int xsmall;
-   int ybig;
-   int ysmall;
+   int rowBig;
+   int rowSmall;
+   int colBig;
+   int colSmall;
    
-   if(x1>x2){
-     xbig = x1;
-     xsmall = x2;
+   if(col1>col2){
+     colBig = col1;
+     colSmall = col2;
    }
    else{
-     xbig = x2;
-     xsmall = x1;
+     colBig = col2;
+     colSmall = col1;
    }
-   if(y1>y2){
-     ybig = y1;
-     ysmall = y2;
+   if(row1>row2){
+     rowBig = row1;
+     rowSmall = row2;
    }
    else{
-     ybig = y2;
-     ysmall = y1;
+     rowBig = row2;
+     rowSmall = row1;
    }
    
-   for(;ysmall<ybig+1;ysmall++){
-     for(;xsmall<xbig+1;xsmall++){
-       multi*=wordMulti[ysmall][xsmall];
+   //for(;rowSmall<=rowBig;rowSmall++){
+   //  for(;colSmall<=colBig;colSmall++){
+   for(;colSmall<=colBig;colSmall++){
+     for(;rowSmall<=rowBig;rowSmall++){
+       multi*=wordMulti[rowSmall][colSmall];
      }
    }
    return multi;
