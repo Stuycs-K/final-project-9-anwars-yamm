@@ -3,8 +3,8 @@ public class Inventory{
   //array list instead
   private ArrayList<Letter> hand;
   
-  public Inventory(ArrayList<Letter> h){
-    hand = h;
+  public Inventory(ArrayList<Letter> hand){
+    this.hand = hand;
   }
   
   public void add(Letter h){
