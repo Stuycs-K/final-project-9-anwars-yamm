@@ -7,18 +7,19 @@ public class Board{
   private Inventory[] users;
   private int[][] wordMulti;
   private int[][] LetterMulti;
-  private Letter[] activeHand;
+  private Letter[][] active;
   
-  public Board(Letter[][] b, Inventory[] u, int[][] w, int[][] l, Letter[] a){
+  public Board(Letter[][] b, Inventory[] u, int[][] w, int[][] l, Letter[][] a){
     board = b;
     users = u;
     wordMulti = w;
     LetterMulti = l;
-    activeHand = a;
+    active = a;
   }
   public Board(){
     wordMulti = setUpWordMulti();
   }
+  
  private int[][] setUpWordMulti(){
    int[][] multi = new int[15][15];
    for(int row = 0; row<multi.length; row++){
@@ -55,6 +56,45 @@ public class Board{
    multi[12][12]=2;
    multi[13][13]=2;
    return multi;
+ }
+ private String getWord(int col1, int row1, int col2, int row2){
+   String word = "";
+   int rowBig;
+   int rowSmall;
+   int colBig;
+   int colSmall;
+   
+   if(col1>col2){
+     colBig = col1;
+     colSmall = col2;
+   }
+   else{
+     colBig = col2;
+     colSmall = col1;
+   }
+   if(row1>row2){
+     rowBig = row1;
+     rowSmall = row2;
+   }
+   else{
+     rowBig = row2;
+     rowSmall = row1;
+   }
+   if(col1==col2){
+     for(;colSmall<=colBig;colSmall++){
+       for(;rowSmall<=rowBig;rowSmall++){
+         word+=String.valueOf(Letter.getLetter(active[rowSmall][colSmall]));
+       }
+     }
+   }
+   if(row1==row2){
+     for(;rowSmall<=rowBig;rowSmall++){
+       for(;colSmall<=colBig;colSmall++){
+         word+=String.valueOf(Letter.getLetter(active[rowSmall][colSmall]));
+       }
+     }
+   }
+   return word;
  }
  private int calcWordMulti(int col1, int row1, int col2, int row2){
    int multi=1;
@@ -146,4 +186,6 @@ public int wordRawScore(String word){
   return totalScore;
 }
 
+
+///
 }
