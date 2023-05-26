@@ -56,7 +56,39 @@ public class Board{
    multi[13][13]=2;
    return multi;
  }
-
+ private int calcWordMulti(int x1, int y1, int x2, int y2){
+   int multi=1;
+   int deltaX = Math.abs(x2-x1);
+   int deltaY = Math.abs(y2-x1);
+   int xbig;
+   int xsmall;
+   int ybig;
+   int ysmall;
+   
+   if(x1>x2){
+     xbig = x1;
+     xsmall = x2;
+   }
+   else{
+     xbig = x2;
+     xsmall = x1;
+   }
+   if(y1>y2){
+     ybig = y1;
+     ysmall = y2;
+   }
+   else{
+     ybig = y2;
+     ysmall = y1;
+   }
+   
+   for(;ysmall<ybig+1;ysmall++){
+     for(;xsmall<xbig+1;xsmall++){
+       multi*=wordMulti[ysmall][xsmall];
+     }
+   }
+   return multi;
+ }
  public int wordCheckReturn(String word){
    String line;
    BufferedReader dict = createReader("dictionary.txt");
