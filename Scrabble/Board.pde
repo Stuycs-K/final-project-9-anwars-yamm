@@ -79,12 +79,18 @@ public class Board{
      rowBig = row2;
      rowSmall = row1;
    }
-   
-   //for(;rowSmall<=rowBig;rowSmall++){
-   //  for(;colSmall<=colBig;colSmall++){
-   for(;colSmall<=colBig;colSmall++){
+   if(col1==col2){
+     for(;colSmall<=colBig;colSmall++){
+       for(;rowSmall<=rowBig;rowSmall++){
+         multi*=wordMulti[rowSmall][colSmall];
+       }
+     }
+   }
+   if(row1==row2){
      for(;rowSmall<=rowBig;rowSmall++){
-       multi*=wordMulti[rowSmall][colSmall];
+       for(;colSmall<=colBig;colSmall++){
+         multi*=wordMulti[rowSmall][colSmall];
+       }
      }
    }
    return multi;
