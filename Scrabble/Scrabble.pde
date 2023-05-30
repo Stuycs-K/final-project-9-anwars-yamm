@@ -5,6 +5,7 @@ void setup(){
   
   size(420, 300);
    Board test = new Board();
+   test.add(0,0,new Letter);
   test.Grid();
    System.out.println(test.wordCheckReturn("HELLO"));
    System.out.println(test.wordCheckReturn("QUERY"));

@@ -47,7 +47,6 @@ public class Board{
       x=60;
     }
   }
- 
  //setup method for the wordMulti array
  private int[][] setUpWordMulti(){
    int[][] multi = new int[15][15];
@@ -89,7 +88,10 @@ public class Board{
    return multi;
  }
  //wrapper method for calculating score based on active
- private String getWord(int col1, int row1, int col2, int row2){
+ public void add(int row, int col, Letter tile){
+   board[row][col]=tile;
+   }
+ public String getWord(int col1, int row1, int col2, int row2){
    String word = "";
    int rowBig;
    int rowSmall;
