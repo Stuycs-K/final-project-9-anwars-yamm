@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+public static Player x;
+public static Player y;
 
 void setup(){
   
@@ -27,24 +29,27 @@ void setup(){
    hand1.add(new Letter(c1, false, 'A'));
    hand1.add(new Letter(c1, false, 'B'));
    hand1.add(new Letter(c1, false, 'C'));
-   Player x = new Player(hand1, 1);
+   x = new Player(hand1, 1);
    x.displayinv();
      ArrayList<Letter> hand2 = new ArrayList<Letter>();
    hand2.add(new Letter(c1, false, 'A'));
    hand2.add(new Letter(c1, false, 'B'));
    hand2.add(new Letter(c1, false, 'C'));
-   Player y = new Player(hand2, 2);
+   y = new Player(hand2, 2);
    y.displayinv();
 }
 
 
 
 void draw(){
-  
 }
 
 void mouseClicked(){
-  int[] coord = {mouseX, mouseY};
-  Letter a = new Letter(coord, false, 'B');
-  a.display();
+ // int[] coord = {mouseX, mouseY};
+ // Letter a = new Letter(coord, false, 'B');
+ // a.display();
+ int[] c = {0, 0};
+ Letter testing = new Letter(c, false, 'D');
+ y.add(testing);
+ y.displayinv();
 }

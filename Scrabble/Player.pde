@@ -11,14 +11,14 @@ public class Player extends Inventory{
   public void displayinv(){
     if(playernum == 1){
       for(int counter = 0; counter < hand.size(); counter ++){
-         int[] coordinates = {50, counter * 50 + 100};
+         int[] coordinates = {20, counter * 40 + 10};
          hand.get(counter).setCoord(coordinates);
         hand.get(counter).display();
     }
     }
     if(playernum == 2){
         for(int counter = 0; counter < hand.size(); counter ++){
-         int[] coordinates = {730, counter * 50 + 100};
+         int[] coordinates = {380, counter * 40 + 10};
          hand.get(counter).setCoord(coordinates);
         hand.get(counter).display();
     }
