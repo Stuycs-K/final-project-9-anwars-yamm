@@ -26,7 +26,10 @@ public class Board{
     stroke(255);
     for (;y<300; y+=20){
       for (;x<360; x+=20){
-        fill(0);
+        int wM = wordMulti[(y)/20][(x-60)/20];
+        if(wM==1) fill(216,213,194);
+        if(wM==2) fill(210,175,181);
+        if(wM==3) fill(240,175,171);
         square(x,y,20);
       }
       x=60;
@@ -68,6 +71,8 @@ public class Board{
    multi[11][11]=2;
    multi[12][12]=2;
    multi[13][13]=2;
+   
+   multi[7][7]=2;
    return multi;
  }
  private String getWord(int col1, int row1, int col2, int row2){
