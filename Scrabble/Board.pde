@@ -16,10 +16,11 @@ public class Board{
     LetterMulti = l;
     active = a;
   }
+  //test constructor
   public Board(){
     wordMulti = setUpWordMulti();
   }
-  
+  //draw the board, may create a new one for confirming 
   void Grid(){
     int x = 60;
     int y = 0;
@@ -30,12 +31,18 @@ public class Board{
         if(wM==1) fill(216,213,194);
         if(wM==2) fill(210,175,181);
         if(wM==3) fill(240,175,171);
+        /*
+        int lM = letterMulti[(y)/20][(x-60)/20];
+        if(lM==2) fill(182,203,204);
+        if(lM==3) fill(5,164,203);
+        */
         square(x,y,20);
+        
       }
       x=60;
     }
   }
-  
+ //setup method for the wordMulti array
  private int[][] setUpWordMulti(){
    int[][] multi = new int[15][15];
    for(int row = 0; row<multi.length; row++){
@@ -75,6 +82,7 @@ public class Board{
    multi[7][7]=2;
    return multi;
  }
+ //wrapper method for calculating score based on active
  private String getWord(int col1, int row1, int col2, int row2){
    String word = "";
    int rowBig;
