@@ -35,3 +35,8 @@ added a method to compound the multipliers
 
 wrote down algo
 changes to active
+
+### date 5/29
+
+beginning on graphical interface, layout decided upon for two players
+created a grid that will eventually display the letter tiles, currently displays word bonuses(color)

@@ -20,6 +20,19 @@ public class Board{
     wordMulti = setUpWordMulti();
   }
   
+  void Grid(){
+    int x = 60;
+    int y = 0;
+    stroke(255);
+    for (;y<300; y+=20){
+      for (;x<360; x+=20){
+        fill(0);
+        square(x,y,20);
+      }
+      x=60;
+    }
+  }
+  
  private int[][] setUpWordMulti(){
    int[][] multi = new int[15][15];
    for(int row = 0; row<multi.length; row++){
@@ -83,14 +96,15 @@ public class Board{
    if(col1==col2){
      for(;colSmall<=colBig;colSmall++){
        for(;rowSmall<=rowBig;rowSmall++){
-         word+=String.valueOf(Letter.getLetter(active[rowSmall][colSmall]));
+         //word+=String.valueOf(Letter.getLetter(active[rowSmall][colSmall]));
+         //not working until I incorporate Shaon's code
        }
      }
    }
    if(row1==row2){
      for(;rowSmall<=rowBig;rowSmall++){
        for(;colSmall<=colBig;colSmall++){
-         word+=String.valueOf(Letter.getLetter(active[rowSmall][colSmall]));
+         //word+=String.valueOf(Letter.getLetter(active[rowSmall][colSmall]));
        }
      }
    }

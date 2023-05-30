@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 void setup(){
+  size(420, 300);
    Board test = new Board();
+  test.Grid();
    System.out.println(test.wordCheckReturn("HELLO"));
    System.out.println(test.wordCheckReturn("QUERY"));
    System.out.println(test.wordCheckReturn("***"));
@@ -15,8 +17,9 @@ void setup(){
    System.out.println(test.calcWordMulti(0,14,0,0));
    //testing across, forwards
    System.out.println(test.calcWordMulti(4,4,10,4));
-   
 }
+
+
 
 void draw(){
 }
