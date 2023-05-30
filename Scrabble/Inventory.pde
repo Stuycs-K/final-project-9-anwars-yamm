@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class Inventory{
   //array list instead
-  private ArrayList<Letter> hand;
+  public ArrayList<Letter> hand;
   
   public Inventory(ArrayList<Letter> hand){
     this.hand = hand;
