@@ -18,6 +18,8 @@ public class Board{
   }
   //test constructor
   public Board(){
+    board = new Letter[15][15];
+    active = new Letter[15][15];
     wordMulti = setUpWordMulti();
   }
   //draw the board, may create a new one for confirming 
@@ -37,11 +39,15 @@ public class Board{
         if(lM==3) fill(5,164,203);
         */
         square(x,y,20);
-        
+        Letter characterCoord = (board[(y)/20][(x-60)/20]);
+        if (characterCoord!=null){
+          characterCoord.display();
+        }
       }
       x=60;
     }
   }
+ 
  //setup method for the wordMulti array
  private int[][] setUpWordMulti(){
    int[][] multi = new int[15][15];

@@ -20,6 +20,7 @@ void setup(){
    System.out.println(test.calcWordMulti(4,4,10,4));
    
    
+   
    int[] c1 = {0, 0};
    Letter a = new Letter(c1, false, 'B');
   //.display();
