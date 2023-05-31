@@ -7,7 +7,13 @@ void setup() {
   Board test = new Board();
   test.add(0,0,'C');
   test.Grid();
-  
+  test.add(0,1,'A');
+  test.add(0,2,'T');
+  test.Grid();
+  String cat = test.getWord(0,0,0,2);
+  println(cat);
+  int activeValue = test.wordCheckReturn(cat)*test.calcWordMulti(0,0,0,2);
+  println(activeValue);
   /* OLD TESTING CODE, DETERMINED WORKS
   System.out.println(test.wordCheckReturn("HELLO"));
   System.out.println(test.wordCheckReturn("QUERY"));
@@ -16,12 +22,12 @@ void setup() {
   for (int[] i : test.wordMulti) {
     System.out.println(Arrays.toString(i));
   }
-  //testing vertical, back and forth
+  //testing horizontal
   System.out.println(test.calcWordMulti(0, 0, 0, 14));
   System.out.println(test.calcWordMulti(0, 14, 0, 0));
-  //testing across, forwards
+  //testing vertical
   System.out.println(test.calcWordMulti(4, 4, 10, 4));
- */
+   */
 
 
   int[] c1 = {0, 0};

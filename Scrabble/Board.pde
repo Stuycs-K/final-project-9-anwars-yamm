@@ -39,9 +39,13 @@ public class Board {
          if(lM==3) fill(5,164,203);
          */
         square(x, y, 20);
-        Letter characterCoord = (board[(y)/20][(x-60)/20]);
-        if (characterCoord!=null) {
-          characterCoord.display(x,y);
+        Letter boardSet = (board[(y)/20][(x-60)/20]);
+        if (boardSet!=null) {
+          boardSet.display(x,y);
+        }
+        Letter activeSet = (active[(y)/20][(x-60)/20]);
+        if (activeSet!=null) {
+          activeSet.display(x,y);
         }
       }
       x=60;
@@ -90,49 +94,38 @@ public class Board {
   
   public void add(int row, int col, char makeTile) {
     Letter tile = new Letter(makeTile);
-    board[row][col]=tile;
+    active[row][col]=tile;
+  }
+  public void commit() {
+    for (int i = 0; i<15; i++){
+      for(int j = 0; j<15; j++){
+        board[i][j]=active[i][j];
+      }
+    }
+    active = new Letter[15][15];
   }
   
   //wrapper method for calculating score based on active
-  public String getWord(int col1, int row1, int col2, int row2) {
+  public String getWord(int row1, int col1, int row2, int col2) {
     String word = "";
-    int rowBig;
-    int rowSmall;
-    int colBig;
-    int colSmall;
+    int rowBig = Math.max(row1,row2);
+    int rowSmall = Math.min(row1,row2);
+    int colBig = Math.max(col1,col2);
+    int colSmall = Math.min(col1,col2);
 
-    if (col1>col2) {
-      colBig = col1;
-      colSmall = col2;
-    } else {
-      colBig = col2;
-      colSmall = col1;
-    }
-    if (row1>row2) {
-      rowBig = row1;
-      rowSmall = row2;
-    } else {
-      rowBig = row2;
-      rowSmall = row1;
-    }
     if (col1==col2) {
-      for (; colSmall<=colBig; colSmall++) {
-        for (; rowSmall<=rowBig; rowSmall++) {
-          //word+=String.valueOf(Letter.getLetter(active[rowSmall][colSmall]));
-          //not working until I incorporate Shaon's code
-        }
+      for(; rowSmall<=rowBig; rowSmall++){
+        word+=String.valueOf((active[rowSmall][colSmall]).getLetter());
       }
     }
-    if (row1==row2) {
-      for (; rowSmall<=rowBig; rowSmall++) {
-        for (; colSmall<=colBig; colSmall++) {
-          //word+=String.valueOf(Letter.getLetter(active[rowSmall][colSmall]));
-        }
+    else {
+      for(; colSmall<=colBig; colSmall++){
+        word+=String.valueOf((active[rowSmall][colSmall]).getLetter());
       }
     }
     return word;
   }
-  private int calcWordMulti(int col1, int row1, int col2, int row2) {
+  private int calcWordMulti(int row1, int col1, int row2, int col2) {
     int multi=1;
     int rowBig;
     int rowSmall;
