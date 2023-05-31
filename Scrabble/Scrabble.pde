@@ -14,6 +14,13 @@ void setup() {
   println(cat);
   int activeValue = test.wordCheckReturn(cat)*test.calcWordMulti(0,0,0,2);
   println(activeValue);
+  test.commit();
+  test.add(0,3,'S');
+  test.Grid();
+  String cats = test.getWord(0,0,0,3);
+  println(cats);
+  activeValue = test.wordCheckReturn(cats)*test.calcWordMulti(0,0,0,3);
+  println(activeValue);
   /* OLD TESTING CODE, DETERMINED WORKS
   System.out.println(test.wordCheckReturn("HELLO"));
   System.out.println(test.wordCheckReturn("QUERY"));

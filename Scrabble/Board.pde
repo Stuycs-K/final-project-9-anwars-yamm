@@ -41,11 +41,11 @@ public class Board {
         square(x, y, 20);
         Letter boardSet = (board[(y)/20][(x-60)/20]);
         if (boardSet!=null) {
-          boardSet.display(x,y);
+          boardSet.display(x, y);
         }
         Letter activeSet = (active[(y)/20][(x-60)/20]);
         if (activeSet!=null) {
-          activeSet.display(x,y);
+          activeSet.display(x, y);
         }
       }
       x=60;
@@ -91,36 +91,49 @@ public class Board {
     multi[7][7]=2;
     return multi;
   }
-  
+
   public void add(int row, int col, char makeTile) {
     Letter tile = new Letter(makeTile);
     active[row][col]=tile;
   }
   public void commit() {
-    for (int i = 0; i<15; i++){
-      for(int j = 0; j<15; j++){
+    for (int i = 0; i<15; i++) {
+      for (int j = 0; j<15; j++) {
         board[i][j]=active[i][j];
       }
     }
     active = new Letter[15][15];
   }
-  
+  public void undo(Player returnTo) {
+    for (Letter[] row : active) {
+      for (Letter col : row) {
+        returnTo.add(col);
+      }
+    }
+    active=new Letter[15][15];
+  }
+
   //wrapper method for calculating score based on active
   public String getWord(int row1, int col1, int row2, int col2) {
     String word = "";
-    int rowBig = Math.max(row1,row2);
-    int rowSmall = Math.min(row1,row2);
-    int colBig = Math.max(col1,col2);
-    int colSmall = Math.min(col1,col2);
+    int rowBig = Math.max(row1, row2);
+    int rowSmall = Math.min(row1, row2);
+    int colBig = Math.max(col1, col2);
+    int colSmall = Math.min(col1, col2);
 
     if (col1==col2) {
-      for(; rowSmall<=rowBig; rowSmall++){
-        word+=String.valueOf((active[rowSmall][colSmall]).getLetter());
+      for (; rowSmall<=rowBig; rowSmall++) {
+        Letter tile = active[rowSmall][colSmall];
+        if (tile == null) tile = board[rowSmall][colSmall];
+        if (tile == null) return null;
+        word+=String.valueOf(tile.getLetter());
       }
-    }
-    else {
-      for(; colSmall<=colBig; colSmall++){
-        word+=String.valueOf((active[rowSmall][colSmall]).getLetter());
+    } else {
+      for (; colSmall<=colBig; colSmall++) {
+        Letter tile = active[rowSmall][colSmall];
+        if (tile == null) tile = board[rowSmall][colSmall];
+        if (tile == null) return null;
+        word+=String.valueOf(tile.getLetter());
       }
     }
     return word;
