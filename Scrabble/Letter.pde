@@ -14,6 +14,7 @@ public class Letter{
     return coord;
   }
   
+  
   public boolean displayStatus(){
     return status;
   }

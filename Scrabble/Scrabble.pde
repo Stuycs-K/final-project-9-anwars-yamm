@@ -5,6 +5,7 @@ public static Player y;
 public boolean rotation = false;
 public int turn = 1;
 public Letter saved;
+public Board test = new Board();
 
 void setup(){
   
@@ -12,7 +13,6 @@ void setup(){
   fill(0);
   rect(0, -1, 60, 300);
   rect(360, -1, 60, 300);
-   Board test = new Board();
   test.Grid();
    System.out.println(test.wordCheckReturn("HELLO"));
    System.out.println(test.wordCheckReturn("QUERY"));
@@ -32,15 +32,15 @@ void setup(){
    Letter a = new Letter(c1, false, 'B');
   //.display();
    ArrayList<Letter> hand1 = new ArrayList<Letter>();
-   hand1.add(new Letter(c1, false, 'A'));
-   hand1.add(new Letter(c1, false, 'B'));
-   hand1.add(new Letter(c1, false, 'C'));
+   for(int counter = 0; counter < 7; counter ++){
+     hand1.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
+   }
    x = new Player(hand1, 1);
    x.displayinv();
      ArrayList<Letter> hand2 = new ArrayList<Letter>();
-   hand2.add(new Letter(c1, false, 'A'));
-   hand2.add(new Letter(c1, false, 'B'));
-   hand2.add(new Letter(c1, false, 'C'));
+ for(int counter = 0; counter < 7; counter ++){
+     hand2.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
+   }
    y = new Player(hand2, 2);
    y.displayinv();
 }
@@ -91,7 +91,7 @@ void mouseClicked(){
    if(mouseX >= 60 && mouseX <= 360){
      for(int counter = 60; counter <= 340; counter = counter + 20){
        for(int inner = 0; inner <= 280; inner = inner + 20){
-         if(mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20){
+         if(mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20 && (test.getBoard())[inner / 20][(counter - 60) / 20] == null){
          int[] newcoords = {counter, inner};
          saved.setCoord(newcoords);
          saved.display();
