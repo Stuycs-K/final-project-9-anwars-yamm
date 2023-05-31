@@ -30,4 +30,8 @@ public class Player extends Inventory{
   public void selectLetter(){
     
 }
+
+  public int getSize(){
+    return hand.size();
+  }
 }

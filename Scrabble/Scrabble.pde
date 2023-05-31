@@ -2,10 +2,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 public static Player x;
 public static Player y;
+public boolean rotation = false;
+public int turn = 1;
+public Letter saved;
 
 void setup(){
   
   size(420, 300);
+  fill(0);
+  rect(0, -1, 60, 300);
+  rect(360, -1, 60, 300);
    Board test = new Board();
   test.Grid();
    System.out.println(test.wordCheckReturn("HELLO"));
@@ -48,8 +54,46 @@ void mouseClicked(){
  // int[] coord = {mouseX, mouseY};
  // Letter a = new Letter(coord, false, 'B');
  // a.display();
- int[] c = {0, 0};
+ /*int[] c = {0, 0};
  Letter testing = new Letter(c, false, 'D');
- y.add(testing);
+ y.remove();
+  rect(0, -1, 60, 300);
+  rect(360, -1, 60, 300);
  y.displayinv();
+ x.displayinv();
+ */
+ if (rotation == false){
+ if(mouseX >= 20 && mouseX <= 40 && turn % 2 == 1){
+    for(int counter = 0; counter < x.getSize(); counter ++){
+      if(mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30){
+        turn ++;
+        saved = x.remove(counter);
+        fill(0);
+        rect(0, -1, 60, 300);
+        x.displayinv();
+        rotation = true;
+      }
+    }
+ }
+ else if (mouseX >= 380 && mouseX <= 400 && turn  % 2 == 0){
+      for(int counter = 0; counter < y.getSize(); counter ++){
+      if(mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30){
+       // rotation = true;
+        turn ++;
+        saved = y.remove(counter);
+        fill(0);
+        rect(360, -1, 60, 300);
+        y.displayinv();
+        rotation = true;
+      }
+    }
+ }
+ }
+ else{
+   int[] newcoords = {mouseX, mouseY};
+   saved.setCoord(newcoords);
+   saved.display();
+   rotation = false;
+   System.out.println("caught");
+ }
 }

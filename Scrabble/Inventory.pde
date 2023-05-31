@@ -11,8 +11,8 @@ public class Inventory{
     hand.add(h);
   }
   
-  public Letter remove(){
-    return hand.remove(hand.size() - 1);
+  public Letter remove(int index){
+    return hand.remove(index);
   }
   
   public void hand(ArrayList<Letter> newHand){
