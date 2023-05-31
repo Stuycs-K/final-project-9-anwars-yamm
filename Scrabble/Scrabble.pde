@@ -5,10 +5,10 @@ void setup() {
 
   size(420, 300);
   Board test = new Board();
-  int hide [] = {20, 20};
-  Letter k = new Letter(hide, false, 'k');
-  test.add(0, 0, k);
+  test.add(0,0,'C');
   test.Grid();
+  
+  /* OLD TESTING CODE, DETERMINED WORKS
   System.out.println(test.wordCheckReturn("HELLO"));
   System.out.println(test.wordCheckReturn("QUERY"));
   System.out.println(test.wordCheckReturn("***"));
@@ -21,7 +21,7 @@ void setup() {
   System.out.println(test.calcWordMulti(0, 14, 0, 0));
   //testing across, forwards
   System.out.println(test.calcWordMulti(4, 4, 10, 4));
-
+ */
 
 
   int[] c1 = {0, 0};

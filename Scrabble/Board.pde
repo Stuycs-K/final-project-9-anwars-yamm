@@ -41,8 +41,7 @@ public class Board {
         square(x, y, 20);
         Letter characterCoord = (board[(y)/20][(x-60)/20]);
         if (characterCoord!=null) {
-          println("k");
-          characterCoord.display();
+          characterCoord.display(x,y);
         }
       }
       x=60;
@@ -88,10 +87,13 @@ public class Board {
     multi[7][7]=2;
     return multi;
   }
-  //wrapper method for calculating score based on active
-  public void add(int row, int col, Letter tile) {
+  
+  public void add(int row, int col, char makeTile) {
+    Letter tile = new Letter(makeTile);
     board[row][col]=tile;
   }
+  
+  //wrapper method for calculating score based on active
   public String getWord(int col1, int row1, int col2, int row2) {
     String word = "";
     int rowBig;
