@@ -66,7 +66,6 @@ void mouseClicked(){
  if(mouseX >= 20 && mouseX <= 40 && turn % 2 == 1){
     for(int counter = 0; counter < x.getSize(); counter ++){
       if(mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30){
-        turn ++;
         saved = x.remove(counter);
         fill(0);
         rect(0, -1, 60, 300);
@@ -79,7 +78,6 @@ void mouseClicked(){
       for(int counter = 0; counter < y.getSize(); counter ++){
       if(mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30){
        // rotation = true;
-        turn ++;
         saved = y.remove(counter);
         fill(0);
         rect(360, -1, 60, 300);
@@ -90,10 +88,21 @@ void mouseClicked(){
  }
  }
  else{
-   int[] newcoords = {mouseX, mouseY};
-   saved.setCoord(newcoords);
-   saved.display();
-   rotation = false;
-   System.out.println("caught");
+   if(mouseX >= 60 && mouseX <= 360){
+     for(int counter = 60; counter <= 340; counter = counter + 20){
+       for(int inner = 0; inner <= 280; inner = inner + 20){
+         if(mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20){
+         int[] newcoords = {counter, inner};
+         saved.setCoord(newcoords);
+         saved.display();
+         rotation = false;
+         turn ++;
+         System.out.println("caught");
+         counter = 1000;
+         inner = 1000;
+         }
+     }
+     }
+   }
  }
 }
