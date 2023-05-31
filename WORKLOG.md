@@ -51,3 +51,7 @@ changes to active
 
 beginning on graphical interface, layout decided upon for two players
 created a grid that will eventually display the letter tiles, currently displays word bonuses(color)
+
+### date 5/30
+
+finished board graphical interface, grid displays both active and board and bonuses. new features added: adding to active, moving active to board, constructors and functionality for letter edited. Next step, gamifying the turns and board
