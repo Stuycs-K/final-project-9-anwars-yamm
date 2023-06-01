@@ -73,11 +73,19 @@ void keyReleased() {
   if (key == ENTER) {
     stage++;
     if (stage==4) {
+      println(Arrays.toString(wordLocation));
+      String userSubmit = test.getWord(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
+      if(userSubmit==null){
+        Player current = x;
+        if (turn%2==0)current = y;
+        //test.exit(current);
+        println("feature doesnt exist yet! make an actual word");
+      }
+      int activeValue = test.wordCheckReturn(userSubmit)*test.calcWordMulti(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
+      println(activeValue);
       stage=1;
       turn++;
     }
-    println(stage);
-    println(Arrays.toString(wordLocation));
   }
 }
 
@@ -144,12 +152,12 @@ void mouseClicked() {
             if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20) {
               if(stage==2){
                 wordLocation[0]=(inner/20);
-                wordLocation[1]=(counter-60/20);
+                wordLocation[1]=((counter-60)/20);
                 stage++;
               }
               else{
                 wordLocation[2]=(inner/20);
-                wordLocation[3]=(counter-60/20);
+                wordLocation[3]=((counter-60)/20);
               }
               counter = 1000;
               inner = 1000;
