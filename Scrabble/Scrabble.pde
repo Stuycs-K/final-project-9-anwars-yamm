@@ -91,15 +91,17 @@ void mouseClicked(){
    if(mouseX >= 60 && mouseX <= 360){
      for(int counter = 60; counter <= 340; counter = counter + 20){
        for(int inner = 0; inner <= 280; inner = inner + 20){
-         if(mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20 && (test.getBoard())[inner / 20][(counter - 60) / 20] == null){
+         if(mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20 && (test.getActive())[inner / 20][(counter - 60) / 20] == null){
          int[] newcoords = {counter, inner};
          saved.setCoord(newcoords);
          saved.display();
+         test.add(inner / 20, (counter - 60) / 20, saved.getLetter());
          rotation = false;
          turn ++;
-         System.out.println("caught");
+        // System.out.println("caught");
          counter = 1000;
          inner = 1000;
+         
          }
      }
      }

@@ -25,6 +25,9 @@ Completed displaying inventory and finished player class. Made some tweaks to co
 ### date 5/30
 Finished adjusting inventory based on new board dimensions, merged our files, tested if adding to the inventory changes the visible display (works fine!). Displaying words on tiles now works perfectly, appropriately snaps to selected tiles.
 
+### date 5/30
+Made clicking actually add to inner array instead of just being a visual thing, made it so that you can't add tiles to preoccupied squares.
+
 ## GROUP MEMBER 2(Mason)
 
 ### date 5/22

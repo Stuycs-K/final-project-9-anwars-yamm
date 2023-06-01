@@ -25,12 +25,10 @@ public class Board {
     board = new Letter[15][15];
     active = new Letter[15][15];
     wordMulti = setUpWordMulti();
-    board = new Letter[15][15];
-    active = new Letter[15][15];
   }
   
-    public Letter[][] getBoard(){
-    return board;
+    public Letter[][] getActive(){
+    return active;
   }
   //draw the board, may create a new one for confirming
   void Grid() {
