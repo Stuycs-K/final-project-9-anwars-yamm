@@ -22,6 +22,12 @@ Working on player class, fixing issue with accessing field in superclass invento
 ### date 5/29
 Completed displaying inventory and finished player class. Made some tweaks to constructors and fields to adjust changes in prototype. Done with all of my classes' method functionality. Next steps: prompt to move letters, adjusting inventory placement based on board dimensions.
 
+### date 5/30
+Finished adjusting inventory based on new board dimensions, merged our files, tested if adding to the inventory changes the visible display (works fine!). Displaying words on tiles now works perfectly, appropriately snaps to selected tiles.
+
+### date 5/30
+Made clicking actually add to inner array instead of just being a visual thing, made it so that you can't add tiles to preoccupied squares.
+
 ## GROUP MEMBER 2(Mason)
 
 ### date 5/22

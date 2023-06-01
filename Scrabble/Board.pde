@@ -9,7 +9,11 @@ public class Board {
   private int[][] LetterMulti;
   private Letter[][] active;
 
+ 
+
+
   public Board(Letter[][] b, Inventory[] u, int[][] w, int[][] l, Letter[][] a) {
+
     board = b;
     users = u;
     wordMulti = w;
@@ -21,6 +25,10 @@ public class Board {
     board = new Letter[15][15];
     active = new Letter[15][15];
     wordMulti = setUpWordMulti();
+  }
+  
+    public Letter[][] getActive(){
+    return active;
   }
   //draw the board, may create a new one for confirming
   void Grid() {

@@ -17,6 +17,7 @@ public class Letter {
   public int[] getCoord() {
     return coord;
   }
+  
 
   public boolean displayStatus() {
     return status;
