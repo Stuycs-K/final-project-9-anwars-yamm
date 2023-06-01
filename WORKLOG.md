@@ -61,3 +61,7 @@ created a grid that will eventually display the letter tiles, currently displays
 ### date 5/30
 
 finished board graphical interface, grid displays both active and board and bonuses. new features added: adding to active, moving active to board, constructors and functionality for letter edited. Next step, gamifying the turns and board
+
+### date 5/31
+
+created turn system, allows each player to take a turn and submit pieces, then asks them to submit and calculates the score
