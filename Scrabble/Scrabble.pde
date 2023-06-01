@@ -6,6 +6,7 @@ public boolean rotation = false;
 public int turn = 1;
 public int stage = 1;
 public Letter saved;
+public int[] wordLocation = new int[4];
 public Board test = new Board();
 
 void setup() {
@@ -71,10 +72,12 @@ void draw() {
 void keyReleased() {
   if (key == ENTER) {
     stage++;
-    if (stage==3) {
+    if (stage==4) {
       stage=1;
       turn++;
     }
+    println(stage);
+    println(Arrays.toString(wordLocation));
   }
 }
 
@@ -134,6 +137,25 @@ void mouseClicked() {
       }
     }
   }
-  if (stage==2) {
+  if (stage==2||stage==3) {
+    if (mouseX >= 60 && mouseX <= 360) {
+        for (int counter = 60; counter <= 340; counter = counter + 20) {
+          for (int inner = 0; inner <= 280; inner = inner + 20) {
+            if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20) {
+              if(stage==2){
+                wordLocation[0]=(inner/20);
+                wordLocation[1]=(counter-60/20);
+                stage++;
+              }
+              else{
+                wordLocation[2]=(inner/20);
+                wordLocation[3]=(counter-60/20);
+              }
+              counter = 1000;
+              inner = 1000;
+            }
+          }
+        }
+      }
   }
 }
