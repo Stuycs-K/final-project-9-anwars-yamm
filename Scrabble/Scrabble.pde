@@ -4,6 +4,7 @@ public static Player x;
 public static Player y;
 public boolean rotation = false;
 public int turn = 1;
+public int stage = 1;
 public Letter saved;
 public Board test = new Board();
 
@@ -13,7 +14,7 @@ void setup() {
   fill(0);
   rect(0, -1, 60, 300);
   rect(360, -1, 60, 300);
-  test.add(0,0,'C');
+  test.add(0, 0, 'C');
   test.Grid();
   test.add(0, 1, 'A');
   test.add(0, 2, 'T');
@@ -67,6 +68,15 @@ void setup() {
 
 void draw() {
 }
+void keyReleased() {
+  if (key == ENTER) {
+    stage++;
+    if (stage==3) {
+      stage=1;
+      turn++;
+    }
+  }
+}
 
 void mouseClicked() {
   // int[] coord = {mouseX, mouseY};
@@ -80,46 +90,50 @@ void mouseClicked() {
    y.displayinv();
    x.displayinv();
    */
-  if (rotation == false) {
-    if (mouseX >= 20 && mouseX <= 40 && turn % 2 == 1) {
-      for (int counter = 0; counter < x.getSize(); counter ++) {
-        if (mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30) {
-          saved = x.remove(counter);
-          fill(0);
-          rect(0, -1, 60, 300);
-          x.displayinv();
-          rotation = true;
+  if (stage==1) {
+    if (rotation == false) {
+      if (mouseX >= 20 && mouseX <= 40 && turn % 2 == 1) {
+        for (int counter = 0; counter < x.getSize(); counter ++) {
+          if (mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30) {
+            saved = x.remove(counter);
+            fill(0);
+            rect(0, -1, 60, 300);
+            x.displayinv();
+            rotation = true;
+          }
+        }
+      } else if (mouseX >= 380 && mouseX <= 400 && turn  % 2 == 0) {
+        for (int counter = 0; counter < y.getSize(); counter ++) {
+          if (mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30) {
+            // rotation = true;
+            saved = y.remove(counter);
+            fill(0);
+            rect(360, -1, 60, 300);
+            y.displayinv();
+            rotation = true;
+          }
         }
       }
-    } else if (mouseX >= 380 && mouseX <= 400 && turn  % 2 == 0) {
-      for (int counter = 0; counter < y.getSize(); counter ++) {
-        if (mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30) {
-          // rotation = true;
-          saved = y.remove(counter);
-          fill(0);
-          rect(360, -1, 60, 300);
-          y.displayinv();
-          rotation = true;
-        }
-      }
-    }
-  } else {
-    if (mouseX >= 60 && mouseX <= 360) {
-      for (int counter = 60; counter <= 340; counter = counter + 20) {
-        for (int inner = 0; inner <= 280; inner = inner + 20) {
-          if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20 && (test.getActive())[inner / 20][(counter - 60) / 20] == null) {
-            int[] newcoords = {counter, inner};
-            saved.setCoord(newcoords);
-            saved.display();
-            test.add(inner / 20, (counter - 60) / 20, saved.getLetter());
-            rotation = false;
-            turn ++;
-            // System.out.println("caught");
-            counter = 1000;
-            inner = 1000;
+    } else {
+      if (mouseX >= 60 && mouseX <= 360) {
+        for (int counter = 60; counter <= 340; counter = counter + 20) {
+          for (int inner = 0; inner <= 280; inner = inner + 20) {
+            if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20 && (test.getActive())[inner / 20][(counter - 60) / 20] == null) {
+              int[] newcoords = {counter, inner};
+              saved.setCoord(newcoords);
+              saved.display();
+              test.add(inner / 20, (counter - 60) / 20, saved.getLetter());
+              rotation = false;
+              //turn ++;
+              // System.out.println("caught");
+              counter = 1000;
+              inner = 1000;
+            }
           }
         }
       }
     }
+  }
+  if (stage==2) {
   }
 }
