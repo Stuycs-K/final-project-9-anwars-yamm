@@ -25,8 +25,11 @@ Completed displaying inventory and finished player class. Made some tweaks to co
 ### date 5/30
 Finished adjusting inventory based on new board dimensions, merged our files, tested if adding to the inventory changes the visible display (works fine!). Displaying words on tiles now works perfectly, appropriately snaps to selected tiles.
 
-### date 5/30
+### date 5/31
 Made clicking actually add to inner array instead of just being a visual thing, made it so that you can't add tiles to preoccupied squares.
+
+### date 6/1
+Made inventory refill after a player is done placing their tiles. Checked everything for the demo, added comments for clarity. 
 
 ## GROUP MEMBER 2(Mason)
 
@@ -61,3 +64,7 @@ created a grid that will eventually display the letter tiles, currently displays
 ### date 5/30
 
 finished board graphical interface, grid displays both active and board and bonuses. new features added: adding to active, moving active to board, constructors and functionality for letter edited. Next step, gamifying the turns and board
+
+### date 5/31
+
+created turn system, allows each player to take a turn and submit pieces, then asks them to submit and calculates the score
