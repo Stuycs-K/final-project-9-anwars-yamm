@@ -9,25 +9,26 @@ public class Board {
   private int[][] LetterMulti;
   private Letter[][] active;
 
- 
+
 
 
   public Board(Letter[][] b, Inventory[] u, int[][] w, int[][] l, Letter[][] a) {
-
     board = b;
     users = u;
     wordMulti = w;
     LetterMulti = l;
     active = a;
   }
-  //test constructor
+  //Trimmed down constructor, will likely use in future
   public Board() {
     board = new Letter[15][15];
     active = new Letter[15][15];
     wordMulti = setUpWordMulti();
+    //users not used
+    //letterMulti not used(yet)
   }
-  
-    public Letter[][] getActive(){
+
+  public Letter[][] getActive() {
     return active;
   }
   //draw the board, may create a new one for confirming
@@ -42,6 +43,7 @@ public class Board {
         if (wM==2) fill(210, 175, 181);
         if (wM==3) fill(240, 175, 171);
         /*
+        letterMulti coloration
         int lM = letterMulti[(y)/20][(x-60)/20];
          if(lM==2) fill(182,203,204);
          if(lM==3) fill(5,164,203);
@@ -75,55 +77,32 @@ public class Board {
     multi[14][0]=3;
     multi[14][7]=3;
     multi[14][14]=3;
-
     multi[1][1]=2;
     multi[2][2]=2;
     multi[3][3]=2;
     multi[4][4]=2;
-
     multi[1][13]=2;
     multi[2][12]=2;
     multi[3][11]=2;
     multi[4][10]=2;
-
     multi[10][4]=2;
     multi[11][3]=2;
     multi[12][2]=2;
     multi[13][1]=2;
-
     multi[10][10]=2;
     multi[11][11]=2;
     multi[12][12]=2;
     multi[13][13]=2;
-
     multi[7][7]=2;
     return multi;
   }
-
+  //adds a new Letter to the active array
   public void add(int row, int col, char makeTile) {
     Letter tile = new Letter(makeTile);
     active[row][col]=tile;
   }
-  public void commit() {
-    for (int i = 0; i<15; i++) {
-      for (int j = 0; j<15; j++) {
-        board[i][j]=active[i][j];
-      }
-    }
-    active = new Letter[15][15];
-  }
-  public void undo(Player returnTo) {
-    for (Letter[] row : active) {
-      for (Letter col : row) {
-        returnTo.add(col);
-      }
-    }
-    active=new Letter[15][15];
-  }
-
-  //wrapper method for calculating score based on active
-  public String getWord(int row1, int col1, int row2, int col2) {
-    String word = "";
+  //moves the approved letters to board array
+  public void commit(int row1, int col1, int row2, int col2) {
     int rowBig = Math.max(row1, row2);
     int rowSmall = Math.min(row1, row2);
     int colBig = Math.max(col1, col2);
@@ -131,28 +110,69 @@ public class Board {
 
     if (col1==col2) {
       for (; rowSmall<=rowBig; rowSmall++) {
+        if(active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
+      }
+    } else {
+      for (; colSmall<=colBig; colSmall++) {
+        if(active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
+      }
+    }
+    active = new Letter[15][15];
+  }
+  //moves all noncommitted/active Letters to a players inventory
+  public void undo(Player returnTo) {
+    for (Letter[] row : active) {
+      for (Letter col : row) {
+        if (col!=null) {
+          int[] c1 = {0, 0};
+          returnTo.add(new Letter(c1, false, col.getLetter()));
+        }
+      }
+    }
+    active=new Letter[15][15];
+  }
+
+  //translates stored coordinates into a word
+  public String getWord(int row1, int col1, int row2, int col2) {
+    String word = "";
+    int usedtiles = 0;
+    int rowBig = Math.max(row1, row2);
+    int rowSmall = Math.min(row1, row2);
+    int colBig = Math.max(col1, col2);
+    int colSmall = Math.min(col1, col2);
+    if (col1==col2) {
+      for (; rowSmall<=rowBig; rowSmall++) {
         Letter tile = active[rowSmall][colSmall];
-        if (tile == null) tile = board[rowSmall][colSmall];
+        if (tile == null) {
+          tile = board[rowSmall][colSmall];
+          usedtiles--;
+        }
         if (tile == null) return null;
         word+=String.valueOf(tile.getLetter());
+        usedtiles++;
       }
     } else {
       for (; colSmall<=colBig; colSmall++) {
         Letter tile = active[rowSmall][colSmall];
-        if (tile == null) tile = board[rowSmall][colSmall];
+        if (tile == null) {
+          tile = board[rowSmall][colSmall];
+          usedtiles--;
+        }
         if (tile == null) return null;
         word+=String.valueOf(tile.getLetter());
+        usedtiles++;
       }
     }
+    if (usedtiles==0) return null;
     return word;
   }
+  //calculates the compounded word multiplier
   private int calcWordMulti(int row1, int col1, int row2, int col2) {
     int multi=1;
     int rowBig;
     int rowSmall;
     int colBig;
     int colSmall;
-
     if (col1>col2) {
       colBig = col1;
       colSmall = col2;
@@ -183,7 +203,9 @@ public class Board {
     }
     return multi;
   }
+  //calculates the raw score of the given string of letters, word or not
   public int wordCheckReturn(String word) {
+    if (word==null) return -1;
     String line;
     BufferedReader dict = createReader("dictionary.txt");
     try {
@@ -205,6 +227,7 @@ public class Board {
     }
     return -1;
   }
+  //checks if the input word is the same as the refrence word given blank tiles
   public boolean qualifies(String input, String ref) {
     if ((input.length())!=(ref.length())) return false;
     for (int i = 0; i < input.length(); i++) {
@@ -217,6 +240,7 @@ public class Board {
     }
     return true;
   }
+  //calculates the raw score of the given string of letters, given its a valid word
   public int wordRawScore(String word) {
     int totalScore = 0;
     for (int i = 0; i < word.length(); i++)
@@ -233,6 +257,4 @@ public class Board {
     return totalScore;
   }
 
-
-  ///
 }

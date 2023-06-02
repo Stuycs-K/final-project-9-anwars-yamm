@@ -29,7 +29,7 @@ Finished adjusting inventory based on new board dimensions, merged our files, te
 Made clicking actually add to inner array instead of just being a visual thing, made it so that you can't add tiles to preoccupied squares.
 
 ### date 6/1
-Made inventory refill after a player is done placing their tiles. Checked everything for the demo, added comments for clarity. 
+Made inventory refill after a player is done placing their tiles. Checked everything for the demo, added comments for clarity.
 
 ## GROUP MEMBER 2(Mason)
 
@@ -68,3 +68,7 @@ finished board graphical interface, grid displays both active and board and bonu
 ### date 5/31
 
 created turn system, allows each player to take a turn and submit pieces, then asks them to submit and calculates the score
+
+### date 6/1
+
+finished turn system. recreated commit, which moves selected letters of active array to board array, created a method to return letters if the word submitted is invalid, and overall made the game more foolproof. Game now has comments, a readme, and instructions.
