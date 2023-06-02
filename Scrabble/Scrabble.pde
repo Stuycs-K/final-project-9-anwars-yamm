@@ -15,8 +15,10 @@ void setup() {
   fill(0);
   rect(0, -1, 60, 300);
   rect(360, -1, 60, 300);
-  test.add(0, 0, 'C');
+  
   test.Grid();
+  /* OLD TESTING CODE, DETERMINED WORKS
+  test.add(0, 0, 'C');
   test.add(0, 1, 'A');
   test.add(0, 2, 'T');
   test.Grid();
@@ -31,7 +33,7 @@ void setup() {
   println(cats);
   activeValue = test.wordCheckReturn(cats)*test.calcWordMulti(0, 0, 0, 3);
   println(activeValue);
-  /* OLD TESTING CODE, DETERMINED WORKS
+  
    System.out.println(test.wordCheckReturn("HELLO"));
    System.out.println(test.wordCheckReturn("QUERY"));
    System.out.println(test.wordCheckReturn("***"));
@@ -75,14 +77,14 @@ void keyReleased() {
     if (stage==4) {
       println(Arrays.toString(wordLocation));
       String userSubmit = test.getWord(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
-      if(userSubmit==null){
+      int activeValue = test.wordCheckReturn(userSubmit)*test.calcWordMulti(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
+      if(activeValue<0){
         Player current = x;
         if (turn%2==0)current = y;
-        //test.exit(current);
-        println("feature doesnt exist yet! make an actual word");
+        test.undo(current);
+        test.Grid();
       }
       else{
-      int activeValue = test.wordCheckReturn(userSubmit)*test.calcWordMulti(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
       println(activeValue);
       test.commit(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
       turn++;

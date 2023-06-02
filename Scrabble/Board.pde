@@ -132,7 +132,10 @@ public class Board {
   public void undo(Player returnTo) {
     for (Letter[] row : active) {
       for (Letter col : row) {
-        returnTo.add(col);
+        if (col!=null) {
+          int[] c1 = {0, 0};
+          returnTo.add(new Letter(c1, false, col.getLetter()));
+        }
       }
     }
     active=new Letter[15][15];
@@ -170,7 +173,7 @@ public class Board {
         usedtiles++;
       }
     }
-    if(usedtiles==0) return null;
+    if (usedtiles==0) return null;
     return word;
   }
   private int calcWordMulti(int row1, int col1, int row2, int col2) {
@@ -211,7 +214,7 @@ public class Board {
     return multi;
   }
   public int wordCheckReturn(String word) {
-    if(word==null) return -1;
+    if (word==null) return -1;
     String line;
     BufferedReader dict = createReader("dictionary.txt");
     try {
