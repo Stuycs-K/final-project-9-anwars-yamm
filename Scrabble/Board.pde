@@ -112,6 +112,23 @@ public class Board {
     }
     active = new Letter[15][15];
   }
+  public void commit(int row1, int col1, int row2, int col2) {
+    int rowBig = Math.max(row1, row2);
+    int rowSmall = Math.min(row1, row2);
+    int colBig = Math.max(col1, col2);
+    int colSmall = Math.min(col1, col2);
+
+    if (col1==col2) {
+      for (; rowSmall<=rowBig; rowSmall++) {
+        board[rowSmall][colSmall]=active[rowSmall][colSmall];
+      }
+    } else {
+      for (; colSmall<=colBig; colSmall++) {
+        board[rowSmall][colSmall]=active[rowSmall][colSmall];
+      }
+    }
+    active = new Letter[15][15];
+  }
   public void undo(Player returnTo) {
     for (Letter[] row : active) {
       for (Letter col : row) {
