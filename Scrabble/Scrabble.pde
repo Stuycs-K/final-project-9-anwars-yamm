@@ -15,25 +15,25 @@ void setup() {
   fill(0);
   rect(0, -1, 60, 300);
   rect(360, -1, 60, 300);
-  
+
   test.Grid();
   /* OLD TESTING CODE, DETERMINED WORKS
-  test.add(0, 0, 'C');
-  test.add(0, 1, 'A');
-  test.add(0, 2, 'T');
-  test.Grid();
-  String cat = test.getWord(0, 0, 0, 2);
-  println(cat);
-  int activeValue = test.wordCheckReturn(cat)*test.calcWordMulti(0, 0, 0, 2);
-  println(activeValue);
-  test.commit();
-  test.add(0, 3, 'S');
-  test.Grid();
-  String cats = test.getWord(0, 0, 0, 3);
-  println(cats);
-  activeValue = test.wordCheckReturn(cats)*test.calcWordMulti(0, 0, 0, 3);
-  println(activeValue);
-  
+   test.add(0, 0, 'C');
+   test.add(0, 1, 'A');
+   test.add(0, 2, 'T');
+   test.Grid();
+   String cat = test.getWord(0, 0, 0, 2);
+   println(cat);
+   int activeValue = test.wordCheckReturn(cat)*test.calcWordMulti(0, 0, 0, 2);
+   println(activeValue);
+   test.commit();
+   test.add(0, 3, 'S');
+   test.Grid();
+   String cats = test.getWord(0, 0, 0, 3);
+   println(cats);
+   activeValue = test.wordCheckReturn(cats)*test.calcWordMulti(0, 0, 0, 3);
+   println(activeValue);
+   
    System.out.println(test.wordCheckReturn("HELLO"));
    System.out.println(test.wordCheckReturn("QUERY"));
    System.out.println(test.wordCheckReturn("***"));
@@ -76,27 +76,30 @@ void keyReleased() {
     stage++;
     if (stage==4) {
       println(Arrays.toString(wordLocation));
-      String userSubmit = test.getWord(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
-      int activeValue = test.wordCheckReturn(userSubmit)*test.calcWordMulti(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
-      if(activeValue<0){
-        Player current = x;
-        if (turn%2==0)current = y;
+      String userSubmit = test.getWord(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
+      int activeValue = test.wordCheckReturn(userSubmit)*test.calcWordMulti(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
+      Player current = x;
+      if (turn%2==0)current = y;
+
+      if (activeValue>0) {
+        println(activeValue);
+        test.commit(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
         test.undo(current);
         test.Grid();
-      }
-      else{
-      println(activeValue);
-      test.commit(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
-      turn++;
+        turn++;
+      } else {
+        test.undo(current);
+        test.Grid();
+        println(activeValue);
       }
       stage=1;
-      
+
       //refills inventory during stage 2 or stage 3, after a player is done placing their tiles.
       int[] c1 = {0, 0};
-      while (x.getSize() < 7){
+      while (x.getSize() < 7) {
         x.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
       }
-      while(y.getSize() < 7){
+      while (y.getSize() < 7) {
         y.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
       }
       fill(0);
@@ -143,8 +146,8 @@ void mouseClicked() {
         for (int counter = 60; counter <= 340; counter = counter + 20) {
           for (int inner = 0; inner <= 280; inner = inner + 20) {
             if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20 && (test.getActive())[inner / 20][(counter - 60) / 20] == null) {
-             //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
-            int[] newcoords = {counter, inner};
+              //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
+              int[] newcoords = {counter, inner};
               saved.setCoord(newcoords);
               saved.display();
               test.add(inner / 20, (counter - 60) / 20, saved.getLetter());
@@ -159,24 +162,22 @@ void mouseClicked() {
   }
   if (stage==2||stage==3) {
     if (mouseX >= 60 && mouseX <= 360) {
-        for (int counter = 60; counter <= 340; counter = counter + 20) {
-          for (int inner = 0; inner <= 280; inner = inner + 20) {
-            if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20) {
-              if(stage==2){
-                wordLocation[0]=(inner/20);
-                wordLocation[1]=((counter-60)/20);
-                stage++;
-              }
-              else{
-                wordLocation[2]=(inner/20);
-                wordLocation[3]=((counter-60)/20);
-              }
-              counter = 1000;
-              inner = 1000;
+      for (int counter = 60; counter <= 340; counter = counter + 20) {
+        for (int inner = 0; inner <= 280; inner = inner + 20) {
+          if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20) {
+            if (stage==2) {
+              wordLocation[0]=(inner/20);
+              wordLocation[1]=((counter-60)/20);
+              stage++;
+            } else {
+              wordLocation[2]=(inner/20);
+              wordLocation[3]=((counter-60)/20);
             }
+            counter = 1000;
+            inner = 1000;
           }
         }
       }
-      
+    }
   }
 }

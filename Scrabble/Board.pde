@@ -120,11 +120,11 @@ public class Board {
 
     if (col1==col2) {
       for (; rowSmall<=rowBig; rowSmall++) {
-        board[rowSmall][colSmall]=active[rowSmall][colSmall];
+        if(active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
       }
     } else {
       for (; colSmall<=colBig; colSmall++) {
-        board[rowSmall][colSmall]=active[rowSmall][colSmall];
+        if(active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
       }
     }
     active = new Letter[15][15];
