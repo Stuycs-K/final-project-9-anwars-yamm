@@ -18,6 +18,8 @@ void setup() {
 
   test.Grid();
   /* OLD TESTING CODE, DETERMINED WORKS
+  
+   Mason's testing code
    test.add(0, 0, 'C');
    test.add(0, 1, 'A');
    test.add(0, 2, 'T');
@@ -46,13 +48,13 @@ void setup() {
    System.out.println(test.calcWordMulti(0, 14, 0, 0));
    //testing vertical
    System.out.println(test.calcWordMulti(4, 4, 10, 4));
-   */
-
-
-  int[] c1 = {0, 0};
+   
+  Shaon's testing code
   Letter a = new Letter(c1, false, 'B');
-
+  */
+  
   //initializes player hands/inventories with random letters
+  int[] c1 = {0, 0};
   ArrayList<Letter> hand1 = new ArrayList<Letter>();
   for (int counter = 0; counter < 7; counter ++) {
     hand1.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
@@ -73,14 +75,15 @@ void draw() {
 }
 void keyReleased() {
   if (key == ENTER) {
+    Player current = x;
+    if (turn%2==0)current = y;
     stage++;
     if (stage==4) {
-      println(Arrays.toString(wordLocation));
+      //translates stored coordinates into a word
       String userSubmit = test.getWord(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
+      //gets score value of the word(<0 if invalid)
       int activeValue = test.wordCheckReturn(userSubmit)*test.calcWordMulti(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
-      Player current = x;
-      if (turn%2==0)current = y;
-
+      //if the word is valid, the board stores it, removes stray letters, and moves on to the next player
       if (activeValue>0) {
         println(activeValue);
         test.commit(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
@@ -88,13 +91,12 @@ void keyReleased() {
         test.Grid();
         turn++;
       } else {
+      //if the word is invalid, the board removes new letters, and stays on the same player
         test.undo(current);
         test.Grid();
-        println(activeValue);
       }
       stage=1;
-
-      //refills inventory during stage 2 or stage 3, after a player is done placing their tiles.
+      //refills inventory after stage 3, after a player has submitted their word.
       int[] c1 = {0, 0};
       while (x.getSize() < 7) {
         x.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
@@ -111,8 +113,11 @@ void keyReleased() {
 }
 
 //mouseClicked: Has two main uses:
+//in stage 1 mode, aka placing tiles
 //1. Checks if the clicked x and y coordinates in the inventory area contains a tile. If it does, it removes the tile from the player's hand, assigns the tile to the variable "saved", and re-displays the inventory without the tile
 //2. Given that the variable "saved" has a value, mouseClicked places the saved tile onto the board with the condition that the desired square does not already have a tile on it.
+//in stage 2/3 mode, aka confirming word to submit
+//1. Records the start or end point of the submitted word and saves it to the variable wordLocation
 void mouseClicked() {
   if (stage==1) {
     if (rotation == false) {
