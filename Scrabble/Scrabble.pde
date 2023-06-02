@@ -67,6 +67,7 @@ void setup() {
   }
   y = new Player(hand2, 2);
   y.displayinv();
+  println("Player 1's turn is ongoing. Use left inventory to place tiles. Press enter to enter confirmation stage.");
 }
 
 
@@ -78,6 +79,14 @@ void keyReleased() {
     Player current = x;
     if (turn%2==0)current = y;
     stage++;
+    if (stage==1) {
+       if (current == x)println("Player 1's turn is ongoing. Use left inventory to place tiles. Press enter to enter confirmation stage.");
+       if (current == y)println("Player 2's turn is ongoing. Use right inventory to place tiles. Press enter to enter confirmation stage.");
+    }
+    if (stage==2) {
+       if (current == x)println("Player 1's turn is ongoing. Click the start and end tiles of the word you wish to submit. Press enter once finished.");
+       if (current == y)println("Player 2's turn is ongoing. Click the start and end tiles of the word you wish to submit. Press enter once finished.");
+    }
     if (stage==4) {
       //translates stored coordinates into a word
       String userSubmit = test.getWord(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
@@ -85,13 +94,15 @@ void keyReleased() {
       int activeValue = test.wordCheckReturn(userSubmit)*test.calcWordMulti(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
       //if the word is valid, the board stores it, removes stray letters, and moves on to the next player
       if (activeValue>0) {
-        println(activeValue);
+        if (current == x)println("Player 1's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
+        if (current == y)println("Player 2's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
         test.commit(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
         test.undo(current);
         test.Grid();
         turn++;
       } else {
       //if the word is invalid, the board removes new letters, and stays on the same player
+        println("Word invalid, please try again.");
         test.undo(current);
         test.Grid();
       }
