@@ -85,6 +85,18 @@ void keyReleased() {
       println(activeValue);
       stage=1;
       turn++;
+      //refills inventory during stage 2 or stage 3, after a player is done placing their tiles.
+      int[] c1 = {0, 0};
+      while (x.getSize() < 7){
+        x.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
+      }
+      while(y.getSize() < 7){
+        y.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
+      }
+      fill(0);
+      rect(0, -1, 60, 300);
+      x.displayinv();
+      y.displayinv();
     }
   }
 }
@@ -159,17 +171,6 @@ void mouseClicked() {
           }
         }
       }
-      //refills inventory during stage 2 or stage 3, after a player is done placing their tiles.
-      int[] c1 = {0, 0};
-      while (x.getSize() < 7){
-        x.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
-      }
-      while(y.getSize() < 7){
-        y.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
-      }
-      fill(0);
-      rect(0, -1, 60, 300);
-      x.displayinv();
-      y.displayinv();
+      
   }
 }

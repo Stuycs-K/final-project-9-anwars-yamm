@@ -9,7 +9,7 @@ public class Board {
   private int[][] LetterMulti;
   private Letter[][] active;
 
- 
+
 
 
   public Board(Letter[][] b, Inventory[] u, int[][] w, int[][] l, Letter[][] a) {
@@ -26,8 +26,8 @@ public class Board {
     active = new Letter[15][15];
     wordMulti = setUpWordMulti();
   }
-  
-    public Letter[][] getActive(){
+
+  public Letter[][] getActive() {
     return active;
   }
   //draw the board, may create a new one for confirming
@@ -141,6 +141,7 @@ public class Board {
   //wrapper method for calculating score based on active
   public String getWord(int row1, int col1, int row2, int col2) {
     String word = "";
+    int usedtiles = 0;
     int rowBig = Math.max(row1, row2);
     int rowSmall = Math.min(row1, row2);
     int colBig = Math.max(col1, col2);
@@ -149,18 +150,27 @@ public class Board {
     if (col1==col2) {
       for (; rowSmall<=rowBig; rowSmall++) {
         Letter tile = active[rowSmall][colSmall];
-        if (tile == null) tile = board[rowSmall][colSmall];
+        if (tile == null) {
+          tile = board[rowSmall][colSmall];
+          usedtiles--;
+        }
         if (tile == null) return null;
         word+=String.valueOf(tile.getLetter());
+        usedtiles++;
       }
     } else {
       for (; colSmall<=colBig; colSmall++) {
         Letter tile = active[rowSmall][colSmall];
-        if (tile == null) tile = board[rowSmall][colSmall];
+        if (tile == null) {
+          tile = board[rowSmall][colSmall];
+          usedtiles--;
+        }
         if (tile == null) return null;
         word+=String.valueOf(tile.getLetter());
+        usedtiles++;
       }
     }
+    if(usedtiles==0) return null;
     return word;
   }
   private int calcWordMulti(int row1, int col1, int row2, int col2) {
