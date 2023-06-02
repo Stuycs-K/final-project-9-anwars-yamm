@@ -211,6 +211,7 @@ public class Board {
     return multi;
   }
   public int wordCheckReturn(String word) {
+    if(word==null) return -1;
     String line;
     BufferedReader dict = createReader("dictionary.txt");
     try {

@@ -81,10 +81,14 @@ void keyReleased() {
         //test.exit(current);
         println("feature doesnt exist yet! make an actual word");
       }
+      else{
       int activeValue = test.wordCheckReturn(userSubmit)*test.calcWordMulti(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
       println(activeValue);
-      stage=1;
+      test.commit(wordLocation[0],wordLocation[1],wordLocation[2],wordLocation[3]);
       turn++;
+      }
+      stage=1;
+      
       //refills inventory during stage 2 or stage 3, after a player is done placing their tiles.
       int[] c1 = {0, 0};
       while (x.getSize() < 7){
