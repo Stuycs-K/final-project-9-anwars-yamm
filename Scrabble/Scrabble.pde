@@ -59,7 +59,34 @@ void setup() {
   for (int counter = 0; counter < 7; counter ++) {
     hand1.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
   }
-  x = new Player(hand1, 1);
+  ArrayList<Letter> preset1 = new ArrayList<Letter>();
+  preset1.add(new Letter(c1, false, 'A'));
+  preset1.add(new Letter(c1, false, 'D'));
+  preset1.add(new Letter(c1, false, 'I'));
+  preset1.add(new Letter(c1, false, 'E'));
+  preset1.add(new Letter(c1, false, 'U'));
+  preset1.add(new Letter(c1, false, 'O'));
+  preset1.add(new Letter(c1, false, 'S'));
+  
+  ArrayList<Letter> preset2 = new ArrayList<Letter>();
+  preset2.add(new Letter(c1, false, 'S'));
+  preset2.add(new Letter(c1, false, 'C'));
+  preset2.add(new Letter(c1, false, 'R'));
+  preset2.add(new Letter(c1, false, 'A'));
+  preset2.add(new Letter(c1, false, 'B'));
+  preset2.add(new Letter(c1, false, 'B'));
+  preset2.add(new Letter(c1, false, 'L'));
+  
+  ArrayList<Letter> preset3 = new ArrayList<Letter>();
+  preset3.add(new Letter(c1, false, 'C'));
+  preset3.add(new Letter(c1, false, 'A'));
+  preset3.add(new Letter(c1, false, 'Z'));
+  preset3.add(new Letter(c1, false, 'I'));
+  preset3.add(new Letter(c1, false, 'Q'));
+  preset3.add(new Letter(c1, false, 'U'));
+  preset3.add(new Letter(c1, false, 'E'));
+  
+  x = new Player(preset1, 1);
   x.displayinv();
   ArrayList<Letter> hand2 = new ArrayList<Letter>();
   for (int counter = 0; counter < 7; counter ++) {
