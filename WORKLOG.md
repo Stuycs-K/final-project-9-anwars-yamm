@@ -72,3 +72,7 @@ created turn system, allows each player to take a turn and submit pieces, then a
 ### date 6/1
 
 finished turn system. recreated commit, which moves selected letters of active array to board array, created a method to return letters if the word submitted is invalid, and overall made the game more foolproof. Game now has comments, a readme, and instructions.
+
+### date 6/4
+
+tiles are now chosen from a bag, with predetermined amounts of letters. Once the bag runs out, the players will no longer receive tiles.
