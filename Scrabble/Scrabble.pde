@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.*;
 public static Player x;
 public static Player y;
+public static Inventory bag;
 public boolean rotation = false;
 public int turn = 1;
 public int stage = 1;
@@ -55,10 +57,7 @@ void setup() {
   
   //initializes player hands/inventories with random letters
   int[] c1 = {0, 0};
-  ArrayList<Letter> hand1 = new ArrayList<Letter>();
-  for (int counter = 0; counter < 7; counter ++) {
-    hand1.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
-  }
+  
   ArrayList<Letter> preset1 = new ArrayList<Letter>();
   preset1.add(new Letter(c1, false, 'A'));
   preset1.add(new Letter(c1, false, 'D'));
@@ -85,19 +84,59 @@ void setup() {
   preset3.add(new Letter(c1, false, 'Q'));
   preset3.add(new Letter(c1, false, 'U'));
   preset3.add(new Letter(c1, false, 'E'));
+
+  ArrayList<Letter> bagAL = new ArrayList<Letter>();
+  bag = new Inventory(bagAL);
+  bag.addNewRep(bagAL,2,'*');
+  bag.addNewRep(bagAL,12,'E');
+  bag.addNewRep(bagAL,9,'A');
+  bag.addNewRep(bagAL,9,'I');
+  bag.addNewRep(bagAL,8,'O');
+  bag.addNewRep(bagAL,6,'N');
+  bag.addNewRep(bagAL,6,'R');
+  bag.addNewRep(bagAL,6,'T');
+  bag.addNewRep(bagAL,4,'L');
+  bag.addNewRep(bagAL,4,'S');
+  bag.addNewRep(bagAL,4,'U');
+  bag.addNewRep(bagAL,4,'D');
+  bag.addNewRep(bagAL,3,'G');
+  bag.addNewRep(bagAL,2,'B');
+  bag.addNewRep(bagAL,2,'C');
+  bag.addNewRep(bagAL,2,'M');
+  bag.addNewRep(bagAL,2,'P');
+  bag.addNewRep(bagAL,2,'F');
+  bag.addNewRep(bagAL,2,'H');
+  bag.addNewRep(bagAL,2,'V');
+  bag.addNewRep(bagAL,2,'W');
+  bag.addNewRep(bagAL,2,'Y');
+  bag.addNewRep(bagAL,1,'K');
+  bag.addNewRep(bagAL,1,'J');
+  bag.addNewRep(bagAL,1,'X');
+  bag.addNewRep(bagAL,1,'Q');
+  bag.addNewRep(bagAL,1,'Z');
+  Collections.shuffle(bagAL);
   
-  x = new Player(preset1, 1);
-  x.displayinv();
+  bag = new Inventory(bagAL);
+  
+  ArrayList<Letter> hand1 = new ArrayList<Letter>();
+  for (int counter = 0; counter < 7; counter ++) {
+    Letter add = bag.remove(0);
+    hand1.add(add);
+  }
   ArrayList<Letter> hand2 = new ArrayList<Letter>();
   for (int counter = 0; counter < 7; counter ++) {
-    hand2.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
+    Letter add = bag.remove(0);
+    hand2.add(add);
   }
+  
+  x = new Player(hand1, 1);
+  x.displayinv();
+  
   y = new Player(hand2, 2);
   y.displayinv();
+  
   println("Player 1's turn is ongoing. Use left inventory to place tiles. Press enter to enter confirmation stage.");
 }
-
-
 
 void draw() {
 }
@@ -137,10 +176,16 @@ void keyReleased() {
       //refills inventory after stage 3, after a player has submitted their word.
       int[] c1 = {0, 0};
       while (x.getSize() < 7) {
-        x.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
+        if(bag.getSize()!=0){
+        Letter add = bag.remove(0);
+        x.add(add);
+        }
       }
       while (y.getSize() < 7) {
-        y.add(new Letter(c1, false, (char) (Math.random()*26 + 65)));
+        if(bag.getSize()!=0){
+        Letter add = bag.remove(0);
+        y.add(add);
+        }
       }
       fill(0);
       rect(0, -1, 60, 300);
