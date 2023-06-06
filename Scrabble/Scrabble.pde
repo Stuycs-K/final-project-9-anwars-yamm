@@ -162,6 +162,8 @@ void keyReleased() {
       if (activeValue>0) {
         if (current == x)println("Player 1's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
         if (current == y)println("Player 2's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
+        current.addPoints(activeValue);
+        println("added stuff!" + current.getPoints());
         test.commit(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
         test.undo(current);
         test.Grid();
