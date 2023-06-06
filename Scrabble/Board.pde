@@ -33,12 +33,12 @@ public class Board {
   }
   //draw the board, may create a new one for confirming
   void Grid() {
-    int x = 60;
+    int x = 150;
     int y = 0;
     stroke(255);
-    for (; y<300; y+=20) {
-      for (; x<360; x+=20) {
-        int wM = wordMulti[(y)/20][(x-60)/20];
+    for (; y<750; y+=50) {
+      for (; x<900; x+=50) {
+        int wM = wordMulti[(y)/50][(x-150)/50];
         if (wM==1) fill(216, 213, 194);
         if (wM==2) fill(210, 175, 181);
         if (wM==3) fill(240, 175, 171);
@@ -48,17 +48,17 @@ public class Board {
          if(lM==2) fill(182,203,204);
          if(lM==3) fill(5,164,203);
          */
-        square(x, y, 20);
-        Letter boardSet = (board[(y)/20][(x-60)/20]);
+        square(x, y, 50);
+        Letter boardSet = (board[(y)/50][(x-150)/50]);
         if (boardSet!=null) {
           boardSet.display(x, y);
         }
-        Letter activeSet = (active[(y)/20][(x-60)/20]);
+        Letter activeSet = (active[(y)/50][(x-150)/50]);
         if (activeSet!=null) {
           activeSet.display(x, y);
         }
       }
-      x=60;
+      x=150;
     }
   }
   //setup method for the wordMulti array

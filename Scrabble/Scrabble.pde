@@ -13,10 +13,10 @@ public Board test = new Board();
 
 void setup() {
 
-  size(420, 300);
+  size(1050, 750);
   fill(0);
-  rect(0, -1, 60, 300);
-  rect(360, -1, 60, 300);
+  rect(0, -1, 150, 750);
+  rect(900, -1, 150, 750);
 
   test.Grid();
   /* OLD TESTING CODE, DETERMINED WORKS
@@ -188,7 +188,7 @@ void keyReleased() {
         }
       }
       fill(0);
-      rect(0, -1, 60, 300);
+      rect(0, -1, 150, 750);
       x.displayinv();
       y.displayinv();
     }
@@ -204,44 +204,44 @@ void keyReleased() {
 void mouseClicked() {
   if (stage==1) {
     if (rotation == false) {
-      if (mouseX >= 20 && mouseX <= 40 && turn % 2 == 1) {
+      if (mouseX >= 50 && mouseX <= 100 && turn % 2 == 1) {
         //condition for player x / 1 (leftmost inventory)
         for (int counter = 0; counter < x.getSize(); counter ++) {
-          if (mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30) {
+          if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
             //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
             saved = x.remove(counter);
             fill(0);
-            rect(0, -1, 60, 300);
+            rect(0, -1, 150, 750);
             x.displayinv();
             rotation = true;
           }
         }
-      } else if (mouseX >= 380 && mouseX <= 400 && turn  % 2 == 0) {
+      } else if (mouseX >= 950 && mouseX <= 1000 && turn  % 2 == 0) {
         //condition for player y / 2 (rightmost inventory)
         for (int counter = 0; counter < y.getSize(); counter ++) {
-          if (mouseY >= counter * 40 + 10 && mouseY <= counter * 40 + 30) {
+          if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
             //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
             saved = y.remove(counter);
             fill(0);
-            rect(360, -1, 60, 300);
+            rect(900, -1, 150, 750);
             y.displayinv();
             rotation = true;
           }
         }
       }
     } else {
-      if (mouseX >= 60 && mouseX <= 360) {
-        for (int counter = 60; counter <= 340; counter = counter + 20) {
-          for (int inner = 0; inner <= 280; inner = inner + 20) {
-            if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20 && (test.getActive())[inner / 20][(counter - 60) / 20] == null) {
+      if (mouseX >= 150 && mouseX <= 900) {
+        for (int counter = 150; counter <= 850; counter = counter + 50) {
+          for (int inner = 0; inner <= 700; inner = inner + 50) {
+            if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50 && (test.getActive())[inner / 50][(counter - 150) / 50] == null) {
               //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
               int[] newcoords = {counter, inner};
               saved.setCoord(newcoords);
               saved.display();
-              test.add(inner / 20, (counter - 60) / 20, saved.getLetter());
+              test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
               rotation = false;
-              counter = 1000;
-              inner = 1000;
+              counter = 2000;
+              inner = 2000;
             }
           }
         }
@@ -249,20 +249,20 @@ void mouseClicked() {
     }
   }
   if (stage==2||stage==3) {
-    if (mouseX >= 60 && mouseX <= 360) {
-      for (int counter = 60; counter <= 340; counter = counter + 20) {
-        for (int inner = 0; inner <= 280; inner = inner + 20) {
-          if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20) {
+    if (mouseX >= 150 && mouseX <= 900) {
+      for (int counter = 150; counter <= 850; counter = counter + 50) {
+          for (int inner = 0; inner <= 700; inner = inner + 50) {
+          if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50) {
             if (stage==2) {
-              wordLocation[0]=(inner/20);
-              wordLocation[1]=((counter-60)/20);
+              wordLocation[0]=(inner/50);
+              wordLocation[1]=((counter-150)/50);
               stage++;
             } else {
-              wordLocation[2]=(inner/20);
-              wordLocation[3]=((counter-60)/20);
+              wordLocation[2]=(inner/50);
+              wordLocation[3]=((counter-150)/50);
             }
-            counter = 1000;
-            inner = 1000;
+            counter = 2000;
+            inner = 2000;
           }
         }
       }

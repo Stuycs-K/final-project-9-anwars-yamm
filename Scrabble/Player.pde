@@ -12,14 +12,14 @@ public class Player extends Inventory{
     //prints all tiles in the player's hand on the left or right side of the screen, based on their player number
     if(playernum == 1){
       for(int counter = 0; counter < hand.size(); counter ++){
-         int[] coordinates = {20, counter * 40 + 10};
+         int[] coordinates = {50, counter * 100 + 25};
          hand.get(counter).setCoord(coordinates);
         hand.get(counter).display();
     }
     }
     if(playernum == 2){
         for(int counter = 0; counter < hand.size(); counter ++){
-         int[] coordinates = {380, counter * 40 + 10};
+         int[] coordinates = {950, counter * 100 + 25};
          hand.get(counter).setCoord(coordinates);
         hand.get(counter).display();
     }
