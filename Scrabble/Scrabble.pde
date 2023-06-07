@@ -236,10 +236,8 @@ void mouseClicked() {
           for (int inner = 0; inner <= 700; inner = inner + 50) {
             if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50 && (test.getActive())[inner / 50][(counter - 150) / 50] == null) {
               //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
-              int[] newcoords = {counter, inner};
-              saved.setCoord(newcoords);
-              saved.display();
               test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
+              test.Grid();
               rotation = false;
               counter = 2000;
               inner = 2000;
@@ -257,10 +255,12 @@ void mouseClicked() {
             if (stage==2) {
               wordLocation[0]=(inner/50);
               wordLocation[1]=((counter-150)/50);
+              circle(counter+5,inner+5,5);
               stage++;
             } else {
               wordLocation[2]=(inner/50);
               wordLocation[3]=((counter-150)/50);
+              circle(counter+5,inner+5,5);
             }
             counter = 2000;
             inner = 2000;
