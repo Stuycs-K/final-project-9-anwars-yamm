@@ -59,31 +59,31 @@ void setup() {
   int[] c1 = {0, 0};
   
   ArrayList<Letter> preset1 = new ArrayList<Letter>();
-  preset1.add(new Letter(c1, false, 'A'));
-  preset1.add(new Letter(c1, false, 'D'));
-  preset1.add(new Letter(c1, false, 'I'));
-  preset1.add(new Letter(c1, false, 'E'));
-  preset1.add(new Letter(c1, false, 'U'));
-  preset1.add(new Letter(c1, false, 'O'));
-  preset1.add(new Letter(c1, false, 'S'));
+  preset1.add(new Letter('A'));
+  preset1.add(new Letter('D'));
+  preset1.add(new Letter('I'));
+  preset1.add(new Letter('E'));
+  preset1.add(new Letter('U'));
+  preset1.add(new Letter('O'));
+  preset1.add(new Letter('S'));
   
   ArrayList<Letter> preset2 = new ArrayList<Letter>();
-  preset2.add(new Letter(c1, false, 'S'));
-  preset2.add(new Letter(c1, false, 'C'));
-  preset2.add(new Letter(c1, false, 'R'));
-  preset2.add(new Letter(c1, false, 'A'));
-  preset2.add(new Letter(c1, false, 'B'));
-  preset2.add(new Letter(c1, false, 'B'));
-  preset2.add(new Letter(c1, false, 'L'));
+  preset2.add(new Letter('S'));
+  preset2.add(new Letter('C'));
+  preset2.add(new Letter('R'));
+  preset2.add(new Letter('A'));
+  preset2.add(new Letter('B'));
+  preset2.add(new Letter('B'));
+  preset2.add(new Letter('L'));
   
   ArrayList<Letter> preset3 = new ArrayList<Letter>();
-  preset3.add(new Letter(c1, false, 'C'));
-  preset3.add(new Letter(c1, false, 'A'));
-  preset3.add(new Letter(c1, false, 'Z'));
-  preset3.add(new Letter(c1, false, 'I'));
-  preset3.add(new Letter(c1, false, 'Q'));
-  preset3.add(new Letter(c1, false, 'U'));
-  preset3.add(new Letter(c1, false, 'E'));
+  preset3.add(new Letter('C'));
+  preset3.add(new Letter('A'));
+  preset3.add(new Letter('Z'));
+  preset3.add(new Letter('I'));
+  preset3.add(new Letter('Q'));
+  preset3.add(new Letter('U'));
+  preset3.add(new Letter('E'));
 
   ArrayList<Letter> bagAL = new ArrayList<Letter>();
   bag = new Inventory(bagAL);

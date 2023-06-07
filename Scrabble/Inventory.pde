@@ -14,8 +14,7 @@ public class Inventory {
   
   public void addNewRep(ArrayList<Letter> bag, int repeat, char letter) {
     for (; repeat>0; repeat--) {
-      int[] c1 = {0, 0};
-      bag.add(new Letter(c1, false, letter));
+      bag.add(new Letter(letter));
       //repeats mutator method to add tiles to hand
     }
   }

@@ -126,8 +126,7 @@ public class Board {
     for (Letter[] row : active) {
       for (Letter col : row) {
         if (col!=null) {
-          int[] c1 = {0, 0};
-          returnTo.add(new Letter(c1, false, col.getLetter()));
+          returnTo.add(new Letter(col.getLetter()));
         }
       }
     }
@@ -260,7 +259,7 @@ public class Board {
       if ("BCMP".contains(c)) totalScore+=3;
       if ("FHVWY".contains(c)) totalScore+=4;
       if ("K".contains(c)) totalScore+=5;
-      if ("JK".contains(c)) totalScore+=8;
+      if ("JX".contains(c)) totalScore+=8;
       if ("QZ".contains(c)) totalScore+=10;
     }
     return totalScore;
