@@ -10,7 +10,9 @@ public class Board {
   private Letter[][] active;
 
 
-
+  public Letter[][] getBoard(){
+    return board;
+  }
 
   public Board(Letter[][] b, Inventory[] u, int[][] w, int[][] l, Letter[][] a) {
     board = b;

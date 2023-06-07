@@ -163,7 +163,6 @@ void keyReleased() {
         if (current == x)println("Player 1's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
         if (current == y)println("Player 2's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
         current.addPoints(activeValue);
-        println("added stuff!" + current.getPoints());
         test.commit(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
         test.undo(current);
         test.Grid();
@@ -193,6 +192,9 @@ void keyReleased() {
       rect(0, -1, 60, 300);
       x.displayinv();
       y.displayinv();
+    fill(255);
+    text("" + x.getPoints(), 20, 290);
+    text("" + y.getPoints(), 380, 290);
     }
   }
 }
@@ -235,7 +237,7 @@ void mouseClicked() {
       if (mouseX >= 60 && mouseX <= 360) {
         for (int counter = 60; counter <= 340; counter = counter + 20) {
           for (int inner = 0; inner <= 280; inner = inner + 20) {
-            if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20 && (test.getActive())[inner / 20][(counter - 60) / 20] == null) {
+            if (mouseX >= counter && mouseX <= counter + 20 && mouseY >= inner && mouseY <= inner + 20 && (test.getBoard())[inner / 20][(counter - 60) / 20] == null && (test.getActive())[inner / 20][(counter - 60) / 20] == null) {
               //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
               int[] newcoords = {counter, inner};
               saved.setCoord(newcoords);
