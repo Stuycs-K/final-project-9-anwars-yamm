@@ -154,6 +154,7 @@ void keyReleased() {
        if (current == y)println("Player 2's turn is ongoing. Click the start and end tiles of the word you wish to submit. Press enter once finished.");
     }
     if (stage==4) {
+      println(Arrays.toString(wordLocation));
       //translates stored coordinates into a word
       String userSubmit = test.getWord(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
       //gets score value of the word(<0 if invalid)

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 public class Player extends Inventory{
   private int playernum;
   
+  
   public Player(ArrayList<Letter> hand, int pn){
     super(hand);
     playernum = pn;

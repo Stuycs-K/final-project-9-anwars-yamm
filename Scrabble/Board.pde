@@ -44,7 +44,7 @@ public class Board {
         if (wM==3) fill(240, 175, 171);
         /*
         letterMulti coloration
-        int lM = letterMulti[(y)/20][(x-60)/20];
+         int lM = letterMulti[(y)/20][(x-60)/20];
          if(lM==2) fill(182,203,204);
          if(lM==3) fill(5,164,203);
          */
@@ -110,11 +110,11 @@ public class Board {
 
     if (col1==col2) {
       for (; rowSmall<=rowBig; rowSmall++) {
-        if(active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
+        if (active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
       }
     } else {
       for (; colSmall<=colBig; colSmall++) {
-        if(active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
+        if (active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
       }
     }
     active = new Letter[15][15];
@@ -140,7 +140,9 @@ public class Board {
     int rowSmall = Math.min(row1, row2);
     int colBig = Math.max(col1, col2);
     int colSmall = Math.min(col1, col2);
+    boolean passthrough=false;
     if (col1==col2) {
+      if((col1==7)&&((rowBig>=7)&&(rowSmall<=7)))passthrough=true;
       for (; rowSmall<=rowBig; rowSmall++) {
         Letter tile = active[rowSmall][colSmall];
         if (tile == null) {
@@ -152,6 +154,7 @@ public class Board {
         usedtiles++;
       }
     } else {
+      if((row1==7)&&((colBig>=7)&&(colSmall<=7)))passthrough=true;
       for (; colSmall<=colBig; colSmall++) {
         Letter tile = active[rowSmall][colSmall];
         if (tile == null) {
@@ -162,8 +165,12 @@ public class Board {
         word+=String.valueOf(tile.getLetter());
         usedtiles++;
       }
+
     }
     if (usedtiles==0) return null;
+    println((usedtiles==word.length()));
+    println((!passthrough));
+    if ( (usedtiles==word.length())&&(!passthrough) ) return null;
     return word;
   }
   //calculates the compounded word multiplier
@@ -256,5 +263,4 @@ public class Board {
     }
     return totalScore;
   }
-
 }
