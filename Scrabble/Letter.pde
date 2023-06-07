@@ -2,7 +2,6 @@ import java.util.ArrayList;
 public class Letter {
   private char letter;
   private int value;
-  private int[][] letterMulti;
 
   public Letter(char l) {
     letter = l;
@@ -15,8 +14,6 @@ public class Letter {
     if ("K".contains(charAsString)) value=5;
     if ("JX".contains(charAsString)) value=8;
     if ("QZ".contains(charAsString)) value=10;
-    Board ref = new Board();
-    letterMulti = ref.setUpLetterMulti();
     //shortcut constructor
   }
   /*
@@ -46,7 +43,7 @@ public class Letter {
     //accessor method for the character
   }
 
-  public void display(int x, int y) {
+  public void display(int x, int y, int[][] letterMulti ) {
     int valueDisplayed = value;
     //creates a tile at the parameters x, y
     fill(210, 180, 140);
@@ -61,6 +58,18 @@ public class Letter {
     if (lM==3) fill(5, 164, 203);
     valueDisplayed*=lM;
     }
+    if (value>=10)text(valueDisplayed, x + 34, y + 44);
+    else text(valueDisplayed, x + 40, y + 44);
+  }
+  public void display(int x, int y) {
+    int valueDisplayed = value;
+    //creates a tile at the parameters x, y
+    fill(210, 180, 140);
+    square(x, y, 50);
+    fill(0);
+    textSize(25);
+    text(letter, x + 15.75, y + 32.5);
+    textSize(15);
     if (value>=10)text(valueDisplayed, x + 34, y + 44);
     else text(valueDisplayed, x + 40, y + 44);
   }

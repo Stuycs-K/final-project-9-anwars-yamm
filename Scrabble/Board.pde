@@ -48,11 +48,11 @@ public class Board {
         square(x, y, 50);
         Letter boardSet = (board[(y)/50][(x-150)/50]);
         if (boardSet!=null) {
-          boardSet.display(x, y);
+          boardSet.display(x, y,letterMulti);
         }
         Letter activeSet = (active[(y)/50][(x-150)/50]);
         if (activeSet!=null) {
-          activeSet.display(x, y);
+          activeSet.display(x, y,letterMulti);
         }
       }
       x=150;
@@ -154,11 +154,13 @@ public class Board {
       for (; rowSmall<=rowBig; rowSmall++) {
         if (active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
         wordMulti[rowSmall][colSmall]=1;
+        letterMulti[rowSmall][colSmall]=1;
       }
     } else {
       for (; colSmall<=colBig; colSmall++) {
         if (active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
         wordMulti[rowSmall][colSmall]=1;
+        letterMulti[rowSmall][colSmall]=1;
       }
     }
     active = new Letter[15][15];
