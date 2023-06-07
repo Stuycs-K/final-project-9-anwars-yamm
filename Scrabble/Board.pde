@@ -6,17 +6,14 @@ public class Board {
   private Letter[][] board;
   private Inventory[] users;
   private int[][] wordMulti;
-  private int[][] LetterMulti;
+  private int[][] letterMulti;
   private Letter[][] active;
-
-
-
 
   public Board(Letter[][] b, Inventory[] u, int[][] w, int[][] l, Letter[][] a) {
     board = b;
     users = u;
     wordMulti = w;
-    LetterMulti = l;
+    letterMulti = l;
     active = a;
   }
   //Trimmed down constructor, will likely use in future
@@ -24,8 +21,8 @@ public class Board {
     board = new Letter[15][15];
     active = new Letter[15][15];
     wordMulti = setUpWordMulti();
+    letterMulti = setUpLetterMulti();
     //users not used
-    //letterMulti not used(yet)
   }
 
   public Letter[][] getActive() {
@@ -42,12 +39,12 @@ public class Board {
         if (wM==1) fill(216, 213, 194);
         if (wM==2) fill(210, 175, 181);
         if (wM==3) fill(240, 175, 171);
-        /*
-        letterMulti coloration
-         int lM = letterMulti[(y)/20][(x-60)/20];
-         if(lM==2) fill(182,203,204);
-         if(lM==3) fill(5,164,203);
-         */
+        
+        //letterMulti coloration
+        int lM = letterMulti[(y)/50][(x-150)/50];
+        if(lM==2) fill(182,203,204);
+        if(lM==3) fill(5,164,203);
+        
         square(x, y, 50);
         Letter boardSet = (board[(y)/50][(x-150)/50]);
         if (boardSet!=null) {
@@ -94,6 +91,51 @@ public class Board {
     multi[12][12]=2;
     multi[13][13]=2;
     multi[7][7]=2;
+    return multi;
+  }
+  private int[][] setUpLetterMulti() {
+    int[][] multi = new int[15][15];
+    for (int row = 0; row<multi.length; row++) {
+      for (int col = 0; col<multi[1].length; col++) {
+        multi[row][col]=1;
+      }
+    }
+    multi[1][5]=3;
+    multi[1][9]=3;
+    multi[5][1]=3;
+    multi[5][5]=3;
+    multi[5][9]=3;
+    multi[5][13]=3;
+    multi[9][1]=3;
+    multi[9][5]=3;
+    multi[9][9]=3;
+    multi[9][13]=3;
+    multi[13][5]=3;
+    multi[13][9]=3;
+    multi[0][3]=2;
+    multi[0][11]=2;
+    multi[2][6]=2;
+    multi[2][8]=2;
+    multi[3][0]=2;
+    multi[3][7]=2;
+    multi[3][14]=2;
+    multi[6][2]=2;
+    multi[6][6]=2;
+    multi[6][8]=2;
+    multi[6][12]=2;
+    multi[7][3]=2;
+    multi[7][11]=2;
+    multi[8][2]=2;
+    multi[8][6]=2;
+    multi[8][8]=2;
+    multi[8][12]=2;
+    multi[11][0]=2;
+    multi[11][7]=2;
+    multi[11][14]=2;
+    multi[12][6]=2;
+    multi[12][8]=2;
+    multi[14][3]=2;
+    multi[14][11]=2;
     return multi;
   }
   //adds a new Letter to the active array

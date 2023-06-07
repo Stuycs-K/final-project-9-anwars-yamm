@@ -39,6 +39,10 @@ public class Letter {
     return letter;
     //accessor method for the character
   }
+  public int getValue() {
+    return value;
+    //accessor method for the character
+  }
 
   public void display(int x, int y) {
     //creates a tile at the parameters x, y
