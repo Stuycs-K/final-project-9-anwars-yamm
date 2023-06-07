@@ -39,20 +39,20 @@ public class Board {
         if (wM==1) fill(216, 213, 194);
         if (wM==2) fill(210, 175, 181);
         if (wM==3) fill(240, 175, 171);
-        
+
         //letterMulti coloration
         int lM = letterMulti[(y)/50][(x-150)/50];
-        if(lM==2) fill(182,203,204);
-        if(lM==3) fill(5,164,203);
-        
+        if (lM==2) fill(182, 203, 204);
+        if (lM==3) fill(5, 164, 203);
+
         square(x, y, 50);
         Letter boardSet = (board[(y)/50][(x-150)/50]);
         if (boardSet!=null) {
-          boardSet.display(x, y,letterMulti);
+          boardSet.display(x, y, letterMulti);
         }
         Letter activeSet = (active[(y)/50][(x-150)/50]);
         if (activeSet!=null) {
-          activeSet.display(x, y,letterMulti);
+          activeSet.display(x, y, letterMulti);
         }
       }
       x=150;
@@ -187,7 +187,7 @@ public class Board {
     int colSmall = Math.min(col1, col2);
     boolean passthrough=false;
     if (col1==col2) {
-      if((col1==7)&&((rowBig>=7)&&(rowSmall<=7)))passthrough=true;
+      if ((col1==7)&&((rowBig>=7)&&(rowSmall<=7)))passthrough=true;
       for (; rowSmall<=rowBig; rowSmall++) {
         Letter tile = active[rowSmall][colSmall];
         if (tile == null) {
@@ -199,7 +199,7 @@ public class Board {
         usedtiles++;
       }
     } else {
-      if((row1==7)&&((colBig>=7)&&(colSmall<=7)))passthrough=true;
+      if ((row1==7)&&((colBig>=7)&&(colSmall<=7)))passthrough=true;
       for (; colSmall<=colBig; colSmall++) {
         Letter tile = active[rowSmall][colSmall];
         if (tile == null) {
@@ -210,7 +210,6 @@ public class Board {
         word+=String.valueOf(tile.getLetter());
         usedtiles++;
       }
-
     }
     if (usedtiles==0) return null;
     println((usedtiles==word.length()));
@@ -221,24 +220,10 @@ public class Board {
   //calculates the compounded word multiplier
   private int calcWordMulti(int row1, int col1, int row2, int col2) {
     int multi=1;
-    int rowBig;
-    int rowSmall;
-    int colBig;
-    int colSmall;
-    if (col1>col2) {
-      colBig = col1;
-      colSmall = col2;
-    } else {
-      colBig = col2;
-      colSmall = col1;
-    }
-    if (row1>row2) {
-      rowBig = row1;
-      rowSmall = row2;
-    } else {
-      rowBig = row2;
-      rowSmall = row1;
-    }
+    int rowBig = Math.max(row1, row2);
+    int rowSmall = Math.min(row1, row2);
+    int colBig = Math.max(col1, col2);
+    int colSmall = Math.min(col1, col2);
     if (col1==col2) {
       for (; colSmall<=colBig; colSmall++) {
         for (; rowSmall<=rowBig; rowSmall++) {
@@ -254,6 +239,35 @@ public class Board {
       }
     }
     return multi;
+  }
+  public int wordValueWithPremiums(int row1, int col1, int row2, int col2) {
+    String word = getWord(row1, int col1, int row2, int col2);
+    if (wordCheck(word)) {
+      int value;
+      int rowBig = Math.max(row1, row2);
+      int rowSmall = Math.min(row1, row2);
+      int colBig = Math.max(col1, col2);
+      int colSmall = Math.min(col1, col2);
+      if (col1==col2) {
+        for (; rowSmall<=rowBig; rowSmall++) {
+          Letter tile = active[rowSmall][colSmall];
+          if (tile == null) {
+            tile = board[rowSmall][colSmall];
+          }
+          value+=tile.getValue()*letterMulti[rowSmall][colSmall];
+        }
+      } else {
+        for (; colSmall<=colBig; colSmall++) {
+          Letter tile = active[rowSmall][colSmall];
+          if (tile == null) {
+            tile = board[rowSmall][colSmall];
+          }
+          value+=tile.getValue()*letterMulti[rowSmall][colSmall];
+        }
+      }
+      return value*wordMulti[rowSmall][colSmall];
+    }
+    return 0
   }
   //calculates the raw score of the given string of letters, word or not
   public int wordCheckReturn(String word) {
@@ -278,6 +292,29 @@ public class Board {
       }
     }
     return -1;
+  }
+  public boolean wordCheck(String word) {
+    if (word==null) return false;
+    String line;
+    BufferedReader dict = createReader("dictionary.txt");
+    try {
+      line = dict.readLine();
+    }
+    catch(IOException e) {
+      line = null;
+    }
+    while (line!=null) {
+      if (qualifies(word, line)) {
+        return(true);
+      }
+      try {
+        line = dict.readLine();
+      }
+      catch(IOException e) {
+        line = null;
+      }
+    }
+    return false;
   }
   //checks if the input word is the same as the refrence word given blank tiles
   public boolean qualifies(String input, String ref) {
