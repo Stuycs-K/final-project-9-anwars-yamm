@@ -27,6 +27,9 @@ public class Inventory {
     return hand.size();
     //accessor method to return size of hand
   }
+  public void shuffle(){
+    Collections.shuffle(hand);
+  }
 
   public void hand(ArrayList<Letter> newHand) {
     //I don't think this method currently serves any purpose
