@@ -85,3 +85,9 @@ Some more rules applied to scrabble, user must incorporate a previously used til
 ### date 6/7
 
 all letter premium tiles are now implemented, code trimmed and reorganized.
+
+### date 6/8
+
+game now displays letter that player is moving to board
+added checking for adjacent conflicts feature to when the player is confirming their word
+added shuffle feature, clicking on the board without a selected piece shuffles the player's remaining tiles and ends their turn
