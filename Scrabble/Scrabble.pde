@@ -158,7 +158,7 @@ void keyReleased() {
       //translates stored coordinates into a word
       String userSubmit = test.getWord(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
       //gets score value of the word(<0 if invalid)
-      int activeValue = test.wordCheckReturn(userSubmit)*test.calcWordMulti(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
+      int activeValue = test.wordValueWithPremiums(wordLocation[0], wordLocation[1], wordLocation[2], wordLocation[3]);
       //if the word is valid, the board stores it, removes stray letters, and moves on to the next player
       if (activeValue>0) {
         if (current == x)println("Player 1's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);

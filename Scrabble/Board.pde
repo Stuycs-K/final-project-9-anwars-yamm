@@ -241,9 +241,9 @@ public class Board {
     return multi;
   }
   public int wordValueWithPremiums(int row1, int col1, int row2, int col2) {
-    String word = getWord(row1, int col1, int row2, int col2);
+    String word = getWord(row1,col1,row2,col2);
     if (wordCheck(word)) {
-      int value;
+      int value=0;
       int rowBig = Math.max(row1, row2);
       int rowSmall = Math.min(row1, row2);
       int colBig = Math.max(col1, col2);
@@ -265,9 +265,9 @@ public class Board {
           value+=tile.getValue()*letterMulti[rowSmall][colSmall];
         }
       }
-      return value*wordMulti[rowSmall][colSmall];
+      return value*calcWordMulti(row1,col1,row2,col2);
     }
-    return 0
+    return 0;
   }
   //calculates the raw score of the given string of letters, word or not
   public int wordCheckReturn(String word) {
