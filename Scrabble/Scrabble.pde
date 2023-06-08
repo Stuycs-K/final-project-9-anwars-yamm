@@ -139,6 +139,12 @@ void setup() {
 }
 
 void draw() {
+  if (saved!=null) {
+    x.displayinv();
+    y.displayinv();
+    test.Grid();
+    saved.display(mouseX-25, mouseY-25);
+  }
 }
 void keyReleased() {
   if (key == ENTER) {
@@ -215,8 +221,6 @@ void mouseClicked() {
           if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
             //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
             saved = x.remove(counter);
-            fill(0);
-            rect(0, -1, 150, 750);
             x.displayinv();
             rotation = true;
           }
@@ -227,8 +231,6 @@ void mouseClicked() {
           if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
             //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
             saved = y.remove(counter);
-            fill(0);
-            rect(900, -1, 150, 750);
             y.displayinv();
             rotation = true;
           }
@@ -241,6 +243,7 @@ void mouseClicked() {
             if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50 && (test.getActive())[inner / 50][(counter - 150) / 50] == null) {
               //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
               test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
+              saved=null;
               test.Grid();
               rotation = false;
               counter = 2000;
