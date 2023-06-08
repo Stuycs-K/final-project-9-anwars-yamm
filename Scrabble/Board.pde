@@ -210,7 +210,7 @@ public class Board {
   //calculates the overall word score
   public int wordValueWithPremiums(int[] coords) {
     String word = getWord(coords);
-    if (wordCheck(word)) {
+    if (wordCheck(word)&&checkAdjacents(coords)) {
       int value=0;
       int rowSmall = coords[0];
       int colSmall = coords[1];
@@ -260,6 +260,82 @@ public class Board {
     }
     return multi;
   }
+
+  public boolean checkAdjacents(int coords[]) {
+    int rowSmall = coords[0];
+    int colSmall = coords[1];
+    int rowBig = coords[2];
+    int colBig = coords[3];
+    if (colSmall == colBig) {
+      for (; rowSmall<=rowBig; rowSmall++) {
+        if (!tileCheckHoriz(rowSmall, colSmall))return false;
+      }
+    } else {
+      for (; colSmall<=colBig; colSmall++) {
+        if (!tileCheckVert(rowSmall, colSmall))return false;
+      }
+    }
+    return(true);
+  }
+
+  private boolean tileCheckVert(int row, int col) {
+    int startIndex = row;
+    while (startIndex>0) {
+      Letter tileBack = board[startIndex-1][col];
+      if (tileBack != null) {
+        startIndex--;
+      } else {
+        break;
+      }
+    }
+    String word = "";
+    while (startIndex < 15) {
+      Letter tileAdd = board[startIndex][col];
+      if (tileAdd!=null) {
+        word+=String.valueOf(tileAdd.getLetter());
+        startIndex++;
+      } else {
+        tileAdd = active[startIndex][col];
+        if (tileAdd != null) {
+          word+=String.valueOf(tileAdd.getLetter());
+          startIndex++;
+        }
+        else break;
+      }
+    }
+    if (word.length()==1)return true;
+    return wordCheck(word);
+  }
+
+  private boolean tileCheckHoriz(int row, int col) {
+    int startIndex = col;
+    while (startIndex>0) {
+      Letter tileBack = board[row][startIndex-1];
+      if (tileBack != null) {
+        startIndex--;
+      } else {
+        break;
+      }
+    }
+    String word = "";
+    while (startIndex < 15) {
+      Letter tileAdd = board[row][startIndex];
+      if (tileAdd!=null) {
+        word+=String.valueOf(tileAdd.getLetter());
+        startIndex++;
+      } else {
+        tileAdd = active[startIndex][col];
+        if (tileAdd != null) {
+          word+=String.valueOf(tileAdd.getLetter());
+          startIndex++;
+        }
+        else break;
+      }
+    }
+    if (word.length()==1)return true;
+    return wordCheck(word);
+  }
+
   //indexes the dictionary and checks each word
   public boolean wordCheck(String word) {
     if (word==null) return false;

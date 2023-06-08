@@ -236,6 +236,11 @@ void mouseClicked() {
           }
         }
       }
+      if (mouseX >= 150 && mouseX <= 900) {
+        Player current = x;
+        if (turn%2==0)current = y;
+        if (saved==null) shuffle(current);
+      }
     } else {
       if (mouseX >= 150 && mouseX <= 900) {
         for (int counter = 150; counter <= 850; counter = counter + 50) {
@@ -276,4 +281,18 @@ void mouseClicked() {
       }
     }
   }
+}
+void shuffle(Player player) {
+  println("shuffle");
+  for (int counter = 0; counter < player.getSize(); counter ++) {
+    bag.add(player.remove(0));
+    bag.shuffle();
+    player.add(bag.remove(0));
+  }
+  if (player == x)println("Player 1's turn is over. Player shuffled, which ended thier turn");
+  if (player == y)println("Player 2's turn is over. Player shuffled, which ended thier turn");
+  test.undo(player);
+  test.Grid();
+  player.displayinv();
+  turn++;
 }
