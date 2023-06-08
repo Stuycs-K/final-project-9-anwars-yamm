@@ -4,31 +4,22 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class Board {
   private Letter[][] board;
-  private Inventory[] users;
   private int[][] wordMulti;
   private int[][] letterMulti;
   private Letter[][] active;
 
-  public Board(Letter[][] b, Inventory[] u, int[][] w, int[][] l, Letter[][] a) {
-    board = b;
-    users = u;
-    wordMulti = w;
-    letterMulti = l;
-    active = a;
-  }
-  //Trimmed down constructor, will likely use in future
+  //Final constructor
   public Board() {
     board = new Letter[15][15];
     active = new Letter[15][15];
     wordMulti = setUpWordMulti();
     letterMulti = setUpLetterMulti();
-    //users not used
   }
-
+  //Accessors
   public Letter[][] getActive() {
     return active;
   }
-  //draw the board, may create a new one for confirming
+  //draw the board
   void Grid() {
     int x = 150;
     int y = 0;
@@ -93,6 +84,7 @@ public class Board {
     multi[7][7]=2;
     return multi;
   }
+  //setup method for the letterMulti array
   private int[][] setUpLetterMulti() {
     int[][] multi = new int[15][15];
     for (int row = 0; row<multi.length; row++) {
@@ -144,13 +136,13 @@ public class Board {
     active[row][col]=tile;
   }
   //moves the approved letters to board array
-  public void commit(int row1, int col1, int row2, int col2) {
-    int rowBig = Math.max(row1, row2);
-    int rowSmall = Math.min(row1, row2);
-    int colBig = Math.max(col1, col2);
-    int colSmall = Math.min(col1, col2);
+  public void commit(int[] coords) {
+    int rowSmall = coords[0];
+    int colSmall = coords[1];
+    int rowBig = coords[2];
+    int colBig = coords[3];
 
-    if (col1==col2) {
+    if (colSmall==colBig) {
       for (; rowSmall<=rowBig; rowSmall++) {
         if (active[rowSmall][colSmall]!=null) board[rowSmall][colSmall]=active[rowSmall][colSmall];
         wordMulti[rowSmall][colSmall]=1;
@@ -178,16 +170,16 @@ public class Board {
   }
 
   //translates stored coordinates into a word
-  public String getWord(int row1, int col1, int row2, int col2) {
+  public String getWord(int[] coords) {
     String word = "";
     int usedtiles = 0;
-    int rowBig = Math.max(row1, row2);
-    int rowSmall = Math.min(row1, row2);
-    int colBig = Math.max(col1, col2);
-    int colSmall = Math.min(col1, col2);
+    int rowSmall = coords[0];
+    int colSmall = coords[1];
+    int rowBig = coords[2];
+    int colBig = coords[3];
     boolean passthrough=false;
-    if (col1==col2) {
-      if ((col1==7)&&((rowBig>=7)&&(rowSmall<=7)))passthrough=true;
+    if (colSmall==colBig) {
+      if ((colSmall==7)&&((rowBig>=7)&&(rowSmall<=7)))passthrough=true;
       for (; rowSmall<=rowBig; rowSmall++) {
         Letter tile = active[rowSmall][colSmall];
         if (tile == null) {
@@ -199,7 +191,7 @@ public class Board {
         usedtiles++;
       }
     } else {
-      if ((row1==7)&&((colBig>=7)&&(colSmall<=7)))passthrough=true;
+      if ((rowSmall==7)&&((colBig>=7)&&(colSmall<=7)))passthrough=true;
       for (; colSmall<=colBig; colSmall++) {
         Letter tile = active[rowSmall][colSmall];
         if (tile == null) {
@@ -212,43 +204,19 @@ public class Board {
       }
     }
     if (usedtiles==0) return null;
-    println((usedtiles==word.length()));
-    println((!passthrough));
     if ( (usedtiles==word.length())&&(!passthrough) ) return null;
     return word;
   }
-  //calculates the compounded word multiplier
-  private int calcWordMulti(int row1, int col1, int row2, int col2) {
-    int multi=1;
-    int rowBig = Math.max(row1, row2);
-    int rowSmall = Math.min(row1, row2);
-    int colBig = Math.max(col1, col2);
-    int colSmall = Math.min(col1, col2);
-    if (col1==col2) {
-      for (; colSmall<=colBig; colSmall++) {
-        for (; rowSmall<=rowBig; rowSmall++) {
-          multi*=wordMulti[rowSmall][colSmall];
-        }
-      }
-    }
-    if (row1==row2) {
-      for (; rowSmall<=rowBig; rowSmall++) {
-        for (; colSmall<=colBig; colSmall++) {
-          multi*=wordMulti[rowSmall][colSmall];
-        }
-      }
-    }
-    return multi;
-  }
-  public int wordValueWithPremiums(int row1, int col1, int row2, int col2) {
-    String word = getWord(row1,col1,row2,col2);
+  //calculates the overall word score
+  public int wordValueWithPremiums(int[] coords) {
+    String word = getWord(coords);
     if (wordCheck(word)) {
       int value=0;
-      int rowBig = Math.max(row1, row2);
-      int rowSmall = Math.min(row1, row2);
-      int colBig = Math.max(col1, col2);
-      int colSmall = Math.min(col1, col2);
-      if (col1==col2) {
+      int rowSmall = coords[0];
+      int colSmall = coords[1];
+      int rowBig = coords[2];
+      int colBig = coords[3];
+      if (colSmall==colBig) {
         for (; rowSmall<=rowBig; rowSmall++) {
           Letter tile = active[rowSmall][colSmall];
           if (tile == null) {
@@ -265,34 +233,34 @@ public class Board {
           value+=tile.getValue()*letterMulti[rowSmall][colSmall];
         }
       }
-      return value*calcWordMulti(row1,col1,row2,col2);
+      return value*calcWordMulti(coords);
     }
     return 0;
   }
-  //calculates the raw score of the given string of letters, word or not
-  public int wordCheckReturn(String word) {
-    if (word==null) return -1;
-    String line;
-    BufferedReader dict = createReader("dictionary.txt");
-    try {
-      line = dict.readLine();
-    }
-    catch(IOException e) {
-      line = null;
-    }
-    while (line!=null) {
-      if (qualifies(word, line)) {
-        return(wordRawScore(word));
+
+  //calculates the compounded word multiplier
+  private int calcWordMulti(int[] coords) {
+    int multi=1;
+    int rowSmall = coords[0];
+    int colSmall = coords[1];
+    int rowBig = coords[2];
+    int colBig = coords[3];
+    if (colSmall==colBig) {
+      for (; colSmall<=colBig; colSmall++) {
+        for (; rowSmall<=rowBig; rowSmall++) {
+          multi*=wordMulti[rowSmall][colSmall];
+        }
       }
-      try {
-        line = dict.readLine();
-      }
-      catch(IOException e) {
-        line = null;
+    } else {
+      for (; rowSmall<=rowBig; rowSmall++) {
+        for (; colSmall<=colBig; colSmall++) {
+          multi*=wordMulti[rowSmall][colSmall];
+        }
       }
     }
-    return -1;
+    return multi;
   }
+  //indexes the dictionary and checks each word
   public boolean wordCheck(String word) {
     if (word==null) return false;
     String line;
@@ -328,21 +296,5 @@ public class Board {
       }
     }
     return true;
-  }
-  //calculates the raw score of the given string of letters, given its a valid word
-  public int wordRawScore(String word) {
-    int totalScore = 0;
-    for (int i = 0; i < word.length(); i++)
-    {
-      String c = word.substring(i, i+1);
-      if ("AEIOULNRST".contains(c)) totalScore+=1;
-      if ("DG".contains(c)) totalScore+=2;
-      if ("BCMP".contains(c)) totalScore+=3;
-      if ("FHVWY".contains(c)) totalScore+=4;
-      if ("K".contains(c)) totalScore+=5;
-      if ("JX".contains(c)) totalScore+=8;
-      if ("QZ".contains(c)) totalScore+=10;
-    }
-    return totalScore;
   }
 }

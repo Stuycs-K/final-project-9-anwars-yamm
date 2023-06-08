@@ -81,3 +81,7 @@ tiles are now chosen from a bag, with predetermined amounts of letters. Once the
 
 Graphical overhaul. Entire board scaled up +150%, small identifiers appear to assist the player in selecting the start and end letters for the submitted word, letters feature values, which match up to the added letter multipliers(graphically indicated by color)
 Some more rules applied to scrabble, user must incorporate a previously used tile, except for the first turn, where the user must place a tile over the center piece. additionally, the letter and word multipliers can only be used in the turn which they are played, meaning that letters already played on premium squares will count at face value.
+
+### date 6/7
+
+all letter premium tiles are now implemented, code trimmed and reorganized.
