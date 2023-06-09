@@ -300,8 +300,7 @@ public class Board {
         if (tileAdd != null) {
           word+=String.valueOf(tileAdd.getLetter());
           startIndex++;
-        }
-        else break;
+        } else break;
       }
     }
     if (word.length()==1)return true;
@@ -329,8 +328,7 @@ public class Board {
         if (tileAdd != null) {
           word+=String.valueOf(tileAdd.getLetter());
           startIndex++;
-        }
-        else break;
+        } else break;
       }
     }
     if (word.length()==1)return true;

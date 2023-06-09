@@ -214,35 +214,38 @@ void keyReleased() {
 //1. Records the start or end point of the submitted word and saves it to the variable wordLocation
 void mouseClicked() {
   if (stage==1) {
-    if (rotation == false) {
-      if (mouseX >= 50 && mouseX <= 100 && turn % 2 == 1) {
-        //condition for player x / 1 (leftmost inventory)
-        for (int counter = 0; counter < x.getSize(); counter ++) {
-          if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
-            //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
+    if (mouseX >= 50 && mouseX <= 100 && turn % 2 == 1) {
+      //condition for player x / 1 (leftmost inventory)
+      for (int counter = 0; counter < x.getSize(); counter ++) {
+        if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
+          //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
+          if (saved == null) {
             saved = x.remove(counter);
-            x.displayinv();
-            rotation = true;
+          } else {
+            saved = x.swap(counter, saved);
           }
+          x.displayinv();
         }
-      } else if (mouseX >= 950 && mouseX <= 1000 && turn  % 2 == 0) {
-        //condition for player y / 2 (rightmost inventory)
-        for (int counter = 0; counter < y.getSize(); counter ++) {
-          if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
-            //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
+      }
+    } else if (mouseX >= 950 && mouseX <= 1000 && turn  % 2 == 0) {
+      //condition for player y / 2 (rightmost inventory)
+      for (int counter = 0; counter < y.getSize(); counter ++) {
+        if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
+          //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
+          if (saved == null) {
             saved = y.remove(counter);
-            y.displayinv();
-            rotation = true;
+          } else {
+            saved = y.swap(counter, saved);
           }
+          y.displayinv();
         }
       }
-      if (mouseX >= 150 && mouseX <= 900) {
-        Player current = x;
-        if (turn%2==0)current = y;
-        if (saved==null) shuffle(current);
-      }
-    } else {
-      if (mouseX >= 150 && mouseX <= 900) {
+    }
+    if (mouseX >= 150 && mouseX <= 900) {
+      Player current = x;
+      if (turn%2==0)current = y;
+      if (saved==null) shuffle(current);
+      else {
         for (int counter = 150; counter <= 850; counter = counter + 50) {
           for (int inner = 0; inner <= 700; inner = inner + 50) {
             if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50 && (test.getActive())[inner / 50][(counter - 150) / 50] == null) {
@@ -250,7 +253,6 @@ void mouseClicked() {
               test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
               saved=null;
               test.Grid();
-              rotation = false;
               counter = 2000;
               inner = 2000;
             }
@@ -259,6 +261,8 @@ void mouseClicked() {
       }
     }
   }
+
+
   if (stage==2||stage==3) {
     if (mouseX >= 150 && mouseX <= 900) {
       for (int counter = 150; counter <= 850; counter = counter + 50) {

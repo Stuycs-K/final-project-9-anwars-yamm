@@ -26,6 +26,12 @@ public class Player extends Inventory {
       }
     }
   }
+  
+  public Letter swap(int index, Letter replaceWith) {
+    hand.add(index,replaceWith);
+    return hand.remove(index+1);
+    //mutator method to swap tiles from hand
+  }
 
   public int getSize() {
     return hand.size();
