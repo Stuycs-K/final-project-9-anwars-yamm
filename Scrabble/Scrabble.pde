@@ -244,18 +244,23 @@ void mouseClicked() {
     if (mouseX >= 150 && mouseX <= 900) {
       Player current = x;
       if (turn%2==0)current = y;
-      if (saved==null) shuffle(current);
-      else {
-        for (int counter = 150; counter <= 850; counter = counter + 50) {
-          for (int inner = 0; inner <= 700; inner = inner + 50) {
-            if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50 && (test.getActive())[inner / 50][(counter - 150) / 50] == null) {
-              //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
-              test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
-              saved=null;
-              test.Grid();
-              counter = 2000;
-              inner = 2000;
+      for (int counter = 150; counter <= 850; counter = counter + 50) {
+        for (int inner = 0; inner <= 700; inner = inner + 50) {
+          if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50) {
+            if (saved==null) {
+              if (test.isEmpty(inner / 50, (counter - 150) / 50)) {
+                shuffle(current);
+              } else {
+                saved = test.remove(inner / 50, (counter - 150) / 50);
+              }
             }
+            //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
+            else {
+              saved=test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
+              test.Grid();
+            }
+            counter = 2000;
+            inner = 2000;
           }
         }
       }

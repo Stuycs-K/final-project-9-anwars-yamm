@@ -19,6 +19,9 @@ public class Board {
   public Letter[][] getActive() {
     return active;
   }
+  public boolean isEmpty(int row, int col){
+    return(active[row][col] == null&&board[row][col]==null);
+  }
   //draw the board
   void Grid() {
     int x = 150;
@@ -131,9 +134,17 @@ public class Board {
     return multi;
   }
   //adds a new Letter to the active array
-  public void add(int row, int col, char makeTile) {
+  public Letter add(int row, int col, char makeTile) {
     Letter tile = new Letter(makeTile);
-    active[row][col]=tile;
+    Letter swapOut = active[row][col];
+    active[row][col] = tile;
+    return swapOut;
+  }
+  //removes a letter from the active array and returns it
+  public Letter remove(int row, int col){
+    Letter remove = active[row][col];
+    active[row][col] = null;
+    return remove;
   }
   //moves the approved letters to board array
   public void commit(int[] coords) {
@@ -157,6 +168,7 @@ public class Board {
     }
     active = new Letter[15][15];
   }
+
   //moves all noncommitted/active Letters to a players inventory
   public void undo(Player returnTo) {
     for (Letter[] row : active) {
