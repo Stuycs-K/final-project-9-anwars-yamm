@@ -210,7 +210,8 @@ public class Board {
   //calculates the overall word score
   public int wordValueWithPremiums(int[] coords) {
     String word = getWord(coords);
-    if (wordCheck(word)&&checkAdjacents(coords)) {
+    boolean adj = checkAdjacents(coords);
+    if (wordCheck(word)&&adj) {
       int value=0;
       int rowSmall = coords[0];
       int colSmall = coords[1];
@@ -324,7 +325,7 @@ public class Board {
         word+=String.valueOf(tileAdd.getLetter());
         startIndex++;
       } else {
-        tileAdd = active[startIndex][col];
+        tileAdd = active[row][startIndex];
         if (tileAdd != null) {
           word+=String.valueOf(tileAdd.getLetter());
           startIndex++;
