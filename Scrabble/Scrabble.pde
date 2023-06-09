@@ -216,7 +216,7 @@ void mouseClicked() {
   if (stage==1) {
     if (mouseX >= 50 && mouseX <= 100 && turn % 2 == 1) {
       //condition for player x / 1 (leftmost inventory)
-      for (int counter = 0; counter < x.getSize(); counter ++) {
+      for (int counter = 0; counter < 7; counter ++) {
         if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
           //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
           if (saved == null) {
@@ -229,7 +229,7 @@ void mouseClicked() {
       }
     } else if (mouseX >= 950 && mouseX <= 1000 && turn  % 2 == 0) {
       //condition for player y / 2 (rightmost inventory)
-      for (int counter = 0; counter < y.getSize(); counter ++) {
+      for (int counter = 0; counter < 7; counter ++) {
         if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
           //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
           if (saved == null) {
