@@ -26,7 +26,7 @@ public class Board {
   void Grid() {
     int x = 150;
     int y = 0;
-    stroke(255);
+    stroke(133,94,66);
     for (; y<750; y+=50) {
       for (; x<900; x+=50) {
         int wM = wordMulti[(y)/50][(x-150)/50];

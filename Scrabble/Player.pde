@@ -12,14 +12,14 @@ public class Player extends Inventory {
   public void displayinv() {
     //prints all tiles in the player's hand on the left or right side of the screen, based on their player number
     if (playernum == 1) {
-      fill(0);
+      fill(232, 222, 209);
       rect(0, -1, 150, 750);
       for (int counter = 0; counter < hand.size(); counter ++) {
         hand.get(counter).display(50, counter * 100 + 25);
       }
     }
     if (playernum == 2) {
-      fill(0);
+      fill(232, 222, 209);
       rect(900, -1, 150, 750);
       for (int counter = 0; counter < hand.size(); counter ++) {
         hand.get(counter).display(950, counter * 100 + 25);
