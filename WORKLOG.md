@@ -29,7 +29,16 @@ Finished adjusting inventory based on new board dimensions, merged our files, te
 Made clicking actually add to inner array instead of just being a visual thing, made it so that you can't add tiles to preoccupied squares.
 
 ### date 6/1
-Made inventory refill after a player is done placing their tiles. Checked everything for the demo, added comments for clarity. 
+Made inventory refill after a player is done placing their tiles. Checked everything for the demo, added comments for clarity.
+
+### date 6/7
+Fixed bug with placing over existing tiles, added visual display for points for each player (going to change when new dimensions are given).
+
+### date 6/9
+Implementing game end condition, need to fix issue with game freezing when hands go under 7 without sufficient tiles.
+
+### date 6/10
+Fixed game end condition, now properly terminates when a hand is 0 and there are no tiles in the bag. Check out weird bug that happened where hand got > 7 tiles.
 
 ## GROUP MEMBER 2(Mason)
 
@@ -68,3 +77,20 @@ finished board graphical interface, grid displays both active and board and bonu
 ### date 5/31
 
 created turn system, allows each player to take a turn and submit pieces, then asks them to submit and calculates the score
+
+### date 6/1
+
+finished turn system. recreated commit, which moves selected letters of active array to board array, created a method to return letters if the word submitted is invalid, and overall made the game more foolproof. Game now has comments, a readme, and instructions.
+
+### date 6/4
+
+tiles are now chosen from a bag, with predetermined amounts of letters. Once the bag runs out, the players will no longer receive tiles.
+
+### date 6/6
+
+Graphical overhaul. Entire board scaled up +150%, small identifiers appear to assist the player in selecting the start and end letters for the submitted word, letters feature values, which match up to the added letter multipliers(graphically indicated by color)
+Some more rules applied to scrabble, user must incorporate a previously used tile, except for the first turn, where the user must place a tile over the center piece. additionally, the letter and word multipliers can only be used in the turn which they are played, meaning that letters already played on premium squares will count at face value.
+
+### date 6/7
+
+all letter premium tiles are now implemented, code trimmed and reorganized.
