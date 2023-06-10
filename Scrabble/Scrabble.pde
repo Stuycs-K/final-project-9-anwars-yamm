@@ -14,7 +14,7 @@ public Board test = new Board();
 void setup() {
 
   size(1050, 750);
-  fill(232, 222, 209);
+  fill(209, 192, 168);
   rect(0, -1, 150, 750);
   rect(900, -1, 150, 750);
 
@@ -198,8 +198,6 @@ void keyReleased() {
           y.add(add);
         }
       }
-      fill(232, 222, 209);
-      rect(0, -1, 150, 750);
       x.displayinv();
       y.displayinv();
     }
