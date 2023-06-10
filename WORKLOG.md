@@ -37,6 +37,9 @@ Fixed bug with placing over existing tiles, added visual display for points for 
 ### date 6/9
 Implementing game end condition, need to fix issue with game freezing when hands go under 7 without sufficient tiles.
 
+### date 6/10
+Fixed game end condition, now properly terminates when a hand is 0 and there are no tiles in the bag. Check out weird bug that happened where hand got > 7 tiles.
+
 ## GROUP MEMBER 2(Mason)
 
 ### date 5/22

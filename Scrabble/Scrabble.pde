@@ -175,7 +175,6 @@ void keyReleased() {
       }
       stage=1;
       //refills inventory after stage 3, after a player has submitted their word.
-      int[] c1 = {0, 0};
       if(bag.getSize() == 0 && (x.getSize() == 0 || y.getSize() == 0)){
         if(x.getPoints() > y.getPoints()){
          println("There are no tiles left. Player 1 wins!");
@@ -188,17 +187,13 @@ void keyReleased() {
         }
       }
       else{
-      while (x.getSize() < 7) {
-        if(bag.getSize()!=0){
+      while (x.getSize() < 7 && bag.getSize() != 0) {
         Letter add = bag.remove(0);
         x.add(add);
-        }
       }
-      while (y.getSize() < 7) {
-        if(bag.getSize()!=0){
+      while (y.getSize() < 7 && bag.getSize() != 0) {
         Letter add = bag.remove(0);
         y.add(add);
-        }
       }
       fill(0);
       rect(0, -1, 60, 300);
