@@ -31,6 +31,15 @@ Made clicking actually add to inner array instead of just being a visual thing, 
 ### date 6/1
 Made inventory refill after a player is done placing their tiles. Checked everything for the demo, added comments for clarity.
 
+### date 6/7
+Fixed bug with placing over existing tiles, added visual display for points for each player (going to change when new dimensions are given).
+
+### date 6/9
+Implementing game end condition, need to fix issue with game freezing when hands go under 7 without sufficient tiles.
+
+### date 6/10
+Fixed game end condition, now properly terminates when a hand is 0 and there are no tiles in the bag. Check out weird bug that happened where hand got > 7 tiles.
+
 ## GROUP MEMBER 2(Mason)
 
 ### date 5/22
@@ -85,3 +94,23 @@ Some more rules applied to scrabble, user must incorporate a previously used til
 ### date 6/7
 
 all letter premium tiles are now implemented, code trimmed and reorganized.
+
+### date 6/8
+
+game now displays letter that player is moving to board
+added checking for adjacent conflicts feature to when the player is confirming their word
+added shuffle feature, clicking on the board without a selected piece shuffles the player's remaining tiles and ends their turn
+
+### date 6/9
+
+made changes on what clicking on stuff while already holding a tile does:
+if a player is holding a tile and clicks on another one of thier tiles, it will swap the selected tiles,
+if a player is holding a tile and clicks on a tile they placed during thier turn that is already on the board, it will swap out the board tile and the selected one
+if a player is holding a tile and clicks on an empty part of thier inventory, it will place the tile back into the inventory
+if a player isnt holding a tile and clicks on a previously placed tile from thier turn, they will pick up that tile
+if a player isnt holding a tile and clicks on a blank part of the board, the player's hand is shuffled
+
+### date 6/10
+
+made some aesthetic changes
+

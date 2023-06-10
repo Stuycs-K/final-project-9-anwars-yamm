@@ -19,11 +19,14 @@ public class Board {
   public Letter[][] getActive() {
     return active;
   }
+  public boolean isEmpty(int row, int col){
+    return(active[row][col] == null&&board[row][col]==null);
+  }
   //draw the board
   void Grid() {
     int x = 150;
     int y = 0;
-    stroke(255);
+    stroke(133,94,66);
     for (; y<750; y+=50) {
       for (; x<900; x+=50) {
         int wM = wordMulti[(y)/50][(x-150)/50];
@@ -131,9 +134,17 @@ public class Board {
     return multi;
   }
   //adds a new Letter to the active array
-  public void add(int row, int col, char makeTile) {
+  public Letter add(int row, int col, char makeTile) {
     Letter tile = new Letter(makeTile);
-    active[row][col]=tile;
+    Letter swapOut = active[row][col];
+    active[row][col] = tile;
+    return swapOut;
+  }
+  //removes a letter from the active array and returns it
+  public Letter remove(int row, int col){
+    Letter remove = active[row][col];
+    active[row][col] = null;
+    return remove;
   }
   //moves the approved letters to board array
   public void commit(int[] coords) {
@@ -157,6 +168,7 @@ public class Board {
     }
     active = new Letter[15][15];
   }
+
   //moves all noncommitted/active Letters to a players inventory
   public void undo(Player returnTo) {
     for (Letter[] row : active) {
@@ -210,7 +222,8 @@ public class Board {
   //calculates the overall word score
   public int wordValueWithPremiums(int[] coords) {
     String word = getWord(coords);
-    if (wordCheck(word)&&checkAdjacents(coords)) {
+    boolean adj = checkAdjacents(coords);
+    if (wordCheck(word)&&adj) {
       int value=0;
       int rowSmall = coords[0];
       int colSmall = coords[1];
@@ -299,8 +312,7 @@ public class Board {
         if (tileAdd != null) {
           word+=String.valueOf(tileAdd.getLetter());
           startIndex++;
-        }
-        else break;
+        } else break;
       }
     }
     if (word.length()==1)return true;
@@ -324,12 +336,11 @@ public class Board {
         word+=String.valueOf(tileAdd.getLetter());
         startIndex++;
       } else {
-        tileAdd = active[startIndex][col];
+        tileAdd = active[row][startIndex];
         if (tileAdd != null) {
           word+=String.valueOf(tileAdd.getLetter());
           startIndex++;
-        }
-        else break;
+        } else break;
       }
     }
     if (word.length()==1)return true;

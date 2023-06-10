@@ -19,6 +19,7 @@ public class Inventory {
     }
   }
   public Letter remove(int index) {
+    if (index>=hand.size()) return null;
     return hand.remove(index);
     //mutator method to remove tiles from hand
   }

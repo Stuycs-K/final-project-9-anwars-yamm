@@ -15,7 +15,13 @@ public class Letter {
     if ("JX".contains(charAsString)) value=8;
     if ("QZ".contains(charAsString)) value=10;
     //shortcut constructor
+    //String[] fontList = PFont.list();
+    //printArray(fontList);
+    PFont TNSBoldItalic =  createFont( "Times New Roman Italic", 30);
+    textFont(TNSBoldItalic);
   }
+
+
   /*
   public int[] getCoord() {
    return coord;
@@ -47,30 +53,45 @@ public class Letter {
     int valueDisplayed = value;
     //creates a tile at the parameters x, y
     fill(210, 180, 140);
-    square(x, y, 50);
-    fill(0);
+    rect(x, y, 50, 50, 7.5);
+    fill(133,94,66);
     textSize(25);
-    text(letter, x + 15.75, y + 32.5);
-    textSize(15);
-    if(x >= 150 && x <= 900){
-    int lM = letterMulti[(y)/50][(x-150)/50];
-    if (lM==2) fill(99, 183, 183);
-    if (lM==3) fill(5, 164, 203);
-    valueDisplayed*=lM;
+    if (letter=='I') {
+      text(letter, x + 20, y + 32.5);
+    } else {
+      text(letter, x + 16, y + 32.5);
     }
-    if (value>=10)text(valueDisplayed, x + 34, y + 44);
-    else text(valueDisplayed, x + 40, y + 44);
+    textSize(15);
+    if (x >= 150 && x <= 900) {
+      int lM = letterMulti[(y)/50][(x-150)/50];
+      if (lM==2) fill(99, 183, 183);
+      if (lM==3) fill(5, 164, 203);
+      valueDisplayed*=lM;
+    }
+    if (valueDisplayed>=10)text(valueDisplayed, x + 30, y + 44);
+    else text(valueDisplayed, x + 35, y + 44);
   }
   public void display(int x, int y) {
     int valueDisplayed = value;
     //creates a tile at the parameters x, y
     fill(210, 180, 140);
-    square(x, y, 50);
-    fill(0);
+    rect(x, y, 50, 50, 7.5);
+    fill(133,94,66);
     textSize(25);
-    text(letter, x + 15.75, y + 32.5);
+    if (letter=='I') {
+      text(letter, x + 20, y + 32.5);
+    } 
+    else if (letter=='W') {
+      text(letter, x + 10, y + 32.5);
+    } 
+    else if (letter=='Q') {
+      text(letter, x + 14, y + 32.5);
+    } 
+    else {
+      text(letter, x + 16, y + 32.5);
+    }
     textSize(15);
-    if (value>=10)text(valueDisplayed, x + 34, y + 44);
-    else text(valueDisplayed, x + 40, y + 44);
+    if (valueDisplayed>=10)text(valueDisplayed, x + 30, y + 44);
+    else text(valueDisplayed, x + 35, y + 44);
   }
 }

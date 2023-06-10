@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.ArrayList; //<>//
 import java.util.Arrays;
 import java.util.*;
 public static Player x;
@@ -10,15 +10,16 @@ public int stage = 1;
 public Letter saved;
 public int[] wordLocation = new int[4];
 public Board test = new Board();
+public int forfeit = 0;
 
 void setup() {
 
   size(1050, 750);
-  fill(0);
+  fill(209, 192, 168);
   rect(0, -1, 150, 750);
   rect(900, -1, 150, 750);
-
   test.Grid();
+
   /* OLD TESTING CODE, DETERMINED WORKS
    
    Mason's testing code
@@ -56,7 +57,6 @@ void setup() {
    */
 
   //initializes player hands/inventories with random letters
-  int[] c1 = {0, 0};
 
   ArrayList<Letter> preset1 = new ArrayList<Letter>();
   preset1.add(new Letter('A'));
@@ -135,6 +135,8 @@ void setup() {
   y = new Player(hand2, 2);
   y.displayinv();
 
+  text(x.getPoints()+" Total Points", 37.5, 725);
+  text(y.getPoints()+" Total Points", 937.5, 725);
   println("Player 1's turn is ongoing. Use left inventory to place tiles. Press enter to enter confirmation stage.");
 }
 
@@ -173,6 +175,7 @@ void keyReleased() {
       if (activeValue>0) {
         if (current == x)println("Player 1's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
         if (current == y)println("Player 2's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
+        current.addPoints(activeValue);
         test.commit(formatted);
         test.undo(current);
         test.Grid();
@@ -185,23 +188,30 @@ void keyReleased() {
       }
       stage=1;
       //refills inventory after stage 3, after a player has submitted their word.
-      int[] c1 = {0, 0};
-      while (x.getSize() < 7) {
-        if (bag.getSize()!=0) {
+      if (bag.getSize() == 0 && (x.getSize() == 0 || y.getSize() == 0)) {
+        if (x.getPoints() > y.getPoints()) {
+          println("There are no tiles left. Player 1 wins!");
+        } else if (y.getPoints() > x.getPoints()) {
+          println("There are no tiles left. Player 2 wins!");
+        } else {
+          println("There are no tiles left. The game ends in a draw!");
+        }
+      } else {
+        while (x.getSize() < 7 && bag.getSize() != 0) {
           Letter add = bag.remove(0);
           x.add(add);
         }
-      }
-      while (y.getSize() < 7) {
-        if (bag.getSize()!=0) {
+        while (y.getSize() < 7 && bag.getSize() != 0) {
           Letter add = bag.remove(0);
           y.add(add);
         }
+        x.displayinv();
+        y.displayinv();
+        fill(133, 94, 66);
+        text(x.getPoints()+" Total Points", 37.5, 725);
+        text(y.getPoints()+" Total Points", 937.5, 725);
+        println("There are " + bag.getSize() + " tiles left in the bag.");
       }
-      fill(0);
-      rect(0, -1, 150, 750);
-      x.displayinv();
-      y.displayinv();
     }
   }
 }
@@ -214,65 +224,87 @@ void keyReleased() {
 //1. Records the start or end point of the submitted word and saves it to the variable wordLocation
 void mouseClicked() {
   if (stage==1) {
-    if (rotation == false) {
-      if (mouseX >= 50 && mouseX <= 100 && turn % 2 == 1) {
-        //condition for player x / 1 (leftmost inventory)
-        for (int counter = 0; counter < x.getSize(); counter ++) {
-          if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
-            //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
+    if (mouseX >= 50 && mouseX <= 100 && turn % 2 == 1) {
+      //condition for player x / 1 (leftmost inventory)
+      for (int counter = 0; counter < 7; counter ++) {
+        if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
+          //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
+          if (saved == null) {
             saved = x.remove(counter);
-            x.displayinv();
-            rotation = true;
+          } else {
+            saved = x.swap(counter, saved);
           }
+          x.displayinv();
         }
-      } else if (mouseX >= 950 && mouseX <= 1000 && turn  % 2 == 0) {
-        //condition for player y / 2 (rightmost inventory)
-        for (int counter = 0; counter < y.getSize(); counter ++) {
-          if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
-            //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
+      }
+    } else if (mouseX >= 950 && mouseX <= 1000 && turn  % 2 == 0) {
+      //condition for player y / 2 (rightmost inventory)
+      for (int counter = 0; counter < 7; counter ++) {
+        if (mouseY >= counter * 100 + 25 && mouseY <= counter * 100 + 75) {
+          //checks if mouseY and mouseX are hovering over a tile, saves the tile, and redisplays the inventory without the tile.
+          if (saved == null) {
             saved = y.remove(counter);
-            y.displayinv();
-            rotation = true;
+          } else {
+            saved = y.swap(counter, saved);
           }
+          y.displayinv();
         }
       }
-      if (mouseX >= 150 && mouseX <= 900) {
-        Player current = x;
-        if (turn%2==0)current = y;
-        if (saved==null) shuffle(current);
-      }
-    } else {
-      if (mouseX >= 150 && mouseX <= 900) {
-        for (int counter = 150; counter <= 850; counter = counter + 50) {
-          for (int inner = 0; inner <= 700; inner = inner + 50) {
-            if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50 && (test.getActive())[inner / 50][(counter - 150) / 50] == null) {
-              //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
-              test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
-              saved=null;
-              test.Grid();
-              rotation = false;
-              counter = 2000;
-              inner = 2000;
+    }
+    if (mouseX >= 150 && mouseX <= 900) {
+      Player current = x;
+      if (turn%2==0)current = y;
+      for (int counter = 150; counter <= 850; counter = counter + 50) {
+        for (int inner = 0; inner <= 700; inner = inner + 50) {
+          if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50) {
+            if (saved==null) {
+              if (test.isEmpty(inner / 50, (counter - 150) / 50)) {
+                shuffle(current);
+              } else {
+                saved = test.remove(inner / 50, (counter - 150) / 50);
+              }
             }
+            //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
+            else {
+              saved=test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
+              test.Grid();
+            }
+            counter = 2000;
+            inner = 2000;
           }
         }
       }
     }
   }
+
+
   if (stage==2||stage==3) {
     if (mouseX >= 150 && mouseX <= 900) {
       for (int counter = 150; counter <= 850; counter = counter + 50) {
         for (int inner = 0; inner <= 700; inner = inner + 50) {
           if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50) {
+
             if (stage==2) {
               wordLocation[0]=(inner/50);
               wordLocation[1]=((counter-150)/50);
               circle(counter+5, inner+5, 5);
               stage++;
             } else {
-              wordLocation[2]=(inner/50);
-              wordLocation[3]=((counter-150)/50);
-              circle(counter+5, inner+5, 5);
+              if ((inner/50)==wordLocation[0]&&((counter-150)/50)==wordLocation[1]) {
+                test.Grid();
+                stage--;
+              } else if ((inner/50)==wordLocation[2]&&((counter-150)/50)==wordLocation[3]) {
+                test.Grid();
+                circle(wordLocation[1]*50+155, wordLocation[0]*50+5, 5);
+                wordLocation[2]=0;
+                wordLocation[3]=0;
+              } else {
+                test.Grid();
+                circle(wordLocation[1]*50+155, wordLocation[0]*50+5, 5);
+                circle(counter+5, inner+5, 5);
+                wordLocation[2]=(inner/50);
+                wordLocation[3]=((counter-150)/50);
+              }
             }
             counter = 2000;
             inner = 2000;
@@ -283,7 +315,6 @@ void mouseClicked() {
   }
 }
 void shuffle(Player player) {
-  println("shuffle");
   for (int counter = 0; counter < player.getSize(); counter ++) {
     bag.add(player.remove(0));
     bag.shuffle();
