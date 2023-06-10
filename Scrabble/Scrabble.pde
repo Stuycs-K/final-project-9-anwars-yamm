@@ -176,6 +176,18 @@ void keyReleased() {
       stage=1;
       //refills inventory after stage 3, after a player has submitted their word.
       int[] c1 = {0, 0};
+      if(bag.getSize() == 0 && (x.getSize() == 0 || y.getSize() == 0)){
+        if(x.getPoints() > y.getPoints()){
+         println("There are no tiles left. Player 1 wins!");
+        }
+        else if (y.getPoints() > x.getPoints()){
+         println("There are no tiles left. Player 2 wins!"); 
+        }
+        else{
+         println("There are no tiles left. The game ends in a draw!"); 
+        }
+      }
+      else{
       while (x.getSize() < 7) {
         if(bag.getSize()!=0){
         Letter add = bag.remove(0);
@@ -195,6 +207,8 @@ void keyReleased() {
     fill(255);
     text("" + x.getPoints(), 20, 290);
     text("" + y.getPoints(), 380, 290);
+    println("There are " + bag.getSize() + " tiles left in the bag.");
+    }
     }
   }
 }
