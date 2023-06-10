@@ -1,12 +1,22 @@
 import java.util.ArrayList;
 public class Player extends Inventory {
   private int playernum;
+  private int points;
 
 
   public Player(ArrayList<Letter> hand, int pn) {
     super(hand);
     playernum = pn;
+    points = 0;
     //constructer, private variable playernum/pn distinguishes which player is which
+  }
+  
+  public void addPoints(int point) {
+    points = points + point;
+  }
+
+  public int getPoints() {
+    return points;
   }
 
   public void displayinv() {
