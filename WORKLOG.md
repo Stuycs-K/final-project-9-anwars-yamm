@@ -91,3 +91,13 @@ all letter premium tiles are now implemented, code trimmed and reorganized.
 game now displays letter that player is moving to board
 added checking for adjacent conflicts feature to when the player is confirming their word
 added shuffle feature, clicking on the board without a selected piece shuffles the player's remaining tiles and ends their turn
+
+### date 6/9
+
+made changes on what clicking on stuff while already holding a tile does:
+if a player is holding a tile and clicks on another one of thier tiles, it will swap the selected tiles,
+if a player is holding a tile and clicks on a tile they placed during thier turn that is already on the board, it will swap out the board tile and the selected one
+if a player is holding a tile and clicks on an empty part of thier inventory, it will place the tile back into the inventory
+if a player isnt holding a tile and clicks on a previously placed tile from thier turn, they will pick up that tile
+if a player isnt holding a tile and clicks on a blank part of the board, the player's hand is shuffled
+
