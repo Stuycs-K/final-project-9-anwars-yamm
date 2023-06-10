@@ -271,18 +271,31 @@ void mouseClicked() {
       for (int counter = 150; counter <= 850; counter = counter + 50) {
         for (int inner = 0; inner <= 700; inner = inner + 50) {
           if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50) {
+
             if (stage==2) {
               wordLocation[0]=(inner/50);
               wordLocation[1]=((counter-150)/50);
               circle(counter+5, inner+5, 5);
               stage++;
             } else {
-              wordLocation[2]=(inner/50);
-              wordLocation[3]=((counter-150)/50);
-              circle(counter+5, inner+5, 5);
+              if ((inner/50)==wordLocation[0]&&((counter-150)/50)==wordLocation[1]) {
+                test.Grid();
+                stage--;
+              } else if ((inner/50)==wordLocation[2]&&((counter-150)/50)==wordLocation[3]) {
+                test.Grid();
+                circle(wordLocation[1]*50+155, wordLocation[0]*50+5, 5);
+                wordLocation[2]=0;
+                wordLocation[3]=0;
+              } else {
+                circle(counter+5, inner+5, 5);
+                wordLocation[2]=(inner/50);
+                wordLocation[3]=((counter-150)/50);
+              }
             }
             counter = 2000;
             inner = 2000;
+            println(wordLocation);
+            println(stage);
           }
         }
       }
