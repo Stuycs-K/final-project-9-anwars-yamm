@@ -101,3 +101,7 @@ if a player is holding a tile and clicks on an empty part of thier inventory, it
 if a player isnt holding a tile and clicks on a previously placed tile from thier turn, they will pick up that tile
 if a player isnt holding a tile and clicks on a blank part of the board, the player's hand is shuffled
 
+### date 6/10
+
+made some aesthetic changes
+
