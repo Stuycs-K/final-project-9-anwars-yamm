@@ -113,4 +113,9 @@ if a player isnt holding a tile and clicks on a blank part of the board, the pla
 ### date 6/10
 
 made some aesthetic changes
+allowed the user to deselect the submission indicators and reposition
+merged Shaon's end game code
+adding endgame event
 
+### date 6/11
+added cheat cases

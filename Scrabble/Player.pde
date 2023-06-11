@@ -10,13 +10,20 @@ public class Player extends Inventory {
     points = 0;
     //constructer, private variable playernum/pn distinguishes which player is which
   }
-  
+
   public void addPoints(int point) {
     points = points + point;
   }
 
   public int getPoints() {
     return points;
+  }
+  public int getPointsFinalScore() {
+    int penalty = 0;
+    for (Letter deduct : hand) {
+      penalty+=deduct.getValue();
+    }
+    return points-penalty;
   }
 
   public void displayinv() {
@@ -27,6 +34,8 @@ public class Player extends Inventory {
       for (int counter = 0; counter < hand.size(); counter ++) {
         hand.get(counter).display(50, counter * 100 + 25);
       }
+      fill(133, 94, 66);
+      text(points+" Total Points", 37.5, 725);
     }
     if (playernum == 2) {
       fill(209, 192, 168);
@@ -34,6 +43,8 @@ public class Player extends Inventory {
       for (int counter = 0; counter < hand.size(); counter ++) {
         hand.get(counter).display(950, counter * 100 + 25);
       }
+      fill(133, 94, 66);
+      text(points+" Total Points", 937.5, 725);
     }
   }
 
