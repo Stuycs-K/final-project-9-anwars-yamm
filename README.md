@@ -17,3 +17,7 @@ pink tiles represent triple word multipliers
 each premium tile is valid only on the turn which it is played on, meaning they can only be used once, but can stack effects on each turn
 adjacent tiles:
 tiles are checked to be valid in respect to the tiles they touch, and the move will be considered to be invalid if the selection creates conflict with already existing words on the table
+cheats:
+(these require an action first, so just select a tile and put it back into the inventory)
+backspace: toggles "cheat mode", shuffling wont put the player's tile into the bag, so the user can get to the empty bag ending earlier
+tab: places a sample turn onto the map, may be useful to try different words or placements without having to come up with too many words
