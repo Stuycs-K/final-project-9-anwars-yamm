@@ -9,7 +9,7 @@ public int turn = 1;
 public int stage = 1;
 public Letter saved;
 public int[] wordLocation = new int[4];
-public Board test = new Board();
+public Board table = new Board();
 public int forfeit = 0;
 public boolean cheats = false;
 
@@ -19,7 +19,7 @@ void setup() {
   fill(209, 192, 168);
   rect(0, -1, 150, 750);
   rect(900, -1, 150, 750);
-  test.Grid();
+  table.Grid();
 
   /* OLD TESTING CODE, DETERMINED WORKS
    
@@ -145,7 +145,7 @@ void draw() {
   if (saved!=null) {
     x.displayinv();
     y.displayinv();
-    test.Grid();
+    table.Grid();
     saved.display(mouseX-25, mouseY-25);
   }
 }
@@ -194,8 +194,8 @@ void keyReleased() {
     int[]coord4 = {7,8,13,8};
     preset.commit(coord4);
     
-    test=preset;
-    test.Grid();
+    table=preset;
+    table.Grid();
   }
   if (key == ENTER) {
     Player current = x;
@@ -217,23 +217,23 @@ void keyReleased() {
       formatted[2] = Math.max(wordLocation[0], wordLocation[2]);//rowBig
       formatted[3] = Math.max(wordLocation[1], wordLocation[3]);//colBig
       //translates stored coordinates into a word
-      String userSubmit = test.getWord(formatted);
+      String userSubmit = table.getWord(formatted);
       //gets score value of the word(<0 if invalid)
-      int activeValue = test.wordValueWithPremiums(formatted);
+      int activeValue = table.wordValueWithPremiums(formatted);
       //if the word is valid, the board stores it, removes stray letters, and moves on to the next player
       if (activeValue>0) {
         if (current == x)println("Player 1's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
         if (current == y)println("Player 2's turn is over. Player submitted word: "+userSubmit+", which increased their points by "+activeValue);
         current.addPoints(activeValue);
-        test.commit(formatted);
-        test.undo(current);
-        test.Grid();
+        table.commit(formatted);
+        table.undo(current);
+        table.Grid();
         turn++;
       } else {
         //if the word is invalid, the board removes new letters, and stays on the same player
         println("Word invalid, please try again.");
-        test.undo(current);
-        test.Grid();
+        table.undo(current);
+        table.Grid();
       }
       stage=1;
       //refills inventory after stage 3, after a player has submitted their word.
@@ -298,17 +298,17 @@ void mouseClicked() {
         for (int inner = 0; inner <= 700; inner = inner + 50) {
           if (mouseX >= counter && mouseX <= counter + 50 && mouseY >= inner && mouseY <= inner + 50) {
             if (saved==null) {
-              if (test.isEmpty(inner / 50, (counter - 150) / 50)) {
+              if (table.isEmpty(inner / 50, (counter - 150) / 50)) {
                 shuffle(current);
               } else {
-                saved = test.remove(inner / 50, (counter - 150) / 50);
+                saved = table.remove(inner / 50, (counter - 150) / 50);
               }
             }
             //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
             else {
-              if(test.isEmpty(inner / 50, (counter - 150) / 50)){
-              saved=test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
-              test.Grid();
+              if(table.isEmpty(inner / 50, (counter - 150) / 50)){
+              saved=table.add(inner / 50, (counter - 150) / 50, saved.getLetter());
+              table.Grid();
               }
             }
             counter = 2000;
@@ -333,15 +333,15 @@ void mouseClicked() {
               stage++;
             } else {
               if ((inner/50)==wordLocation[0]&&((counter-150)/50)==wordLocation[1]) {
-                test.Grid();
+                table.Grid();
                 stage--;
               } else if ((inner/50)==wordLocation[2]&&((counter-150)/50)==wordLocation[3]) {
-                test.Grid();
+                table.Grid();
                 circle(wordLocation[1]*50+155, wordLocation[0]*50+5, 5);
                 wordLocation[2]=0;
                 wordLocation[3]=0;
               } else {
-                test.Grid();
+                table.Grid();
                 circle(wordLocation[1]*50+155, wordLocation[0]*50+5, 5);
                 circle(counter+5, inner+5, 5);
                 wordLocation[2]=(inner/50);
@@ -368,8 +368,8 @@ void shuffle(Player player) {
   if (player == x)println("Player 1's turn is over. Player shuffled, which ended their turn");
   if (player == y)println("Player 2's turn is over. Player shuffled, which ended their turn");
   println("There are " + bag.getSize() + " tiles left in the bag.");
-  test.undo(player);
-  test.Grid();
+  table.undo(player);
+  table.Grid();
   player.displayinv();
   turn++;
   forfeit++;
