@@ -11,6 +11,7 @@ public Letter saved;
 public int[] wordLocation = new int[4];
 public Board test = new Board();
 public int forfeit = 0;
+public boolean cheats = false;
 
 void setup() {
 
@@ -149,6 +150,53 @@ void draw() {
   }
 }
 void keyReleased() {
+  if (key == BACKSPACE) {
+    if (cheats) {
+      cheats = false;
+      println("cheats off");
+    } else {
+      cheats = true;
+      println("cheats on");
+    }
+  }
+  if (key == TAB) {
+    Board preset = new Board();
+    preset.add(2,6,'C');
+    preset.add(3,6,'L');
+    preset.add(4,6,'A');
+    preset.add(5,6,'S');
+    preset.add(6,6,'S');
+    preset.add(7,6,'I');
+    preset.add(8,6,'C');
+    int[] coord1 = {2,6,8,6};
+    preset.commit(coord1);
+    
+    preset.add(5,2,'W');
+    preset.add(5,3,'O');
+    preset.add(5,4,'R');
+    preset.add(5,5,'D');
+    int[] coord2 = {5,6,5,6};
+    preset.commit(coord2);
+    
+    preset.add(7,5,'G');
+    preset.add(7,7,'A');
+    preset.add(7,8,'N');
+    preset.add(7,9,'T');
+    int[] coord3 = {7,5,7,9};
+    preset.commit(coord3);
+    
+    preset.add(8,8,'O');
+    preset.add(9,8,'T');
+    preset.add(10,8,'A');
+    preset.add(11,8,'B');   
+    preset.add(12,8,'L');
+    preset.add(13,8,'E');
+    int[]coord4 = {7,8,13,8};
+    preset.commit(coord4);
+    
+    test=preset;
+    test.Grid();
+  }
   if (key == ENTER) {
     Player current = x;
     if (turn%2==0)current = y;
@@ -158,6 +206,7 @@ void keyReleased() {
       if (current == y)println("Player 2's turn is ongoing. Use right inventory to place tiles. Press enter to enter confirmation stage.");
     }
     if (stage==2) {
+      forfeit = 0;
       if (current == x)println("Player 1's turn is ongoing. Click the start and end tiles of the word you wish to submit. Press enter once finished.");
       if (current == y)println("Player 2's turn is ongoing. Click the start and end tiles of the word you wish to submit. Press enter once finished.");
     }
@@ -188,14 +237,8 @@ void keyReleased() {
       }
       stage=1;
       //refills inventory after stage 3, after a player has submitted their word.
-      if (bag.getSize() == 0 && (x.getSize() == 0 || y.getSize() == 0)) {
-        if (x.getPoints() > y.getPoints()) {
-          println("There are no tiles left. Player 1 wins!");
-        } else if (y.getPoints() > x.getPoints()) {
-          println("There are no tiles left. Player 2 wins!");
-        } else {
-          println("There are no tiles left. The game ends in a draw!");
-        }
+      if (bag.getSize() <= 0 && (x.getSize() == 0 || y.getSize() == 0)) {
+        endGame("emptied");
       } else {
         while (x.getSize() < 7 && bag.getSize() != 0) {
           Letter add = bag.remove(0);
@@ -207,9 +250,6 @@ void keyReleased() {
         }
         x.displayinv();
         y.displayinv();
-        fill(133, 94, 66);
-        text(x.getPoints()+" Total Points", 37.5, 725);
-        text(y.getPoints()+" Total Points", 937.5, 725);
         println("There are " + bag.getSize() + " tiles left in the bag.");
       }
     }
@@ -266,8 +306,10 @@ void mouseClicked() {
             }
             //checks if mouseX and mouseY are on a valid board square (that is empty), adds the saved tile to the board (both visually and to the array)
             else {
+              if(test.isEmpty(inner / 50, (counter - 150) / 50)){
               saved=test.add(inner / 50, (counter - 150) / 50, saved.getLetter());
               test.Grid();
+              }
             }
             counter = 2000;
             inner = 2000;
@@ -315,15 +357,44 @@ void mouseClicked() {
   }
 }
 void shuffle(Player player) {
-  for (int counter = 0; counter < player.getSize(); counter ++) {
-    bag.add(player.remove(0));
+  for (int counter = 0; (counter < player.getSize())&&(bag.getSize()>0); counter ++) {
+    Letter removed = player.remove(0);
+    if (!cheats) {
+      bag.add(removed);
+    }
     bag.shuffle();
     player.add(bag.remove(0));
   }
-  if (player == x)println("Player 1's turn is over. Player shuffled, which ended thier turn");
-  if (player == y)println("Player 2's turn is over. Player shuffled, which ended thier turn");
+  if (player == x)println("Player 1's turn is over. Player shuffled, which ended their turn");
+  if (player == y)println("Player 2's turn is over. Player shuffled, which ended their turn");
+  println("There are " + bag.getSize() + " tiles left in the bag.");
   test.undo(player);
   test.Grid();
   player.displayinv();
   turn++;
+  forfeit++;
+  if (forfeit == 4&&!cheats) {
+    endGame("shuffle");
+  }
+}
+void endGame(String condition) {
+
+  if (condition.equals("emptied")) {
+    if (x.getPointsFinalScore() > y.getPointsFinalScore()) {
+      println("There are no tiles left. Player 1 wins with "+x.getPointsFinalScore()+" points to "+y.getPointsFinalScore()+" points!");
+    } else if (y.getPointsFinalScore() > x.getPointsFinalScore()) {
+      println("There are no tiles left. Player 2 wins with "+y.getPointsFinalScore()+" points to "+x.getPointsFinalScore()+" points!");
+    } else {
+      println("There are no tiles left. The game ends in a draw!("+x.getPointsFinalScore()+" points to "+y.getPointsFinalScore()+" points)");
+    }
+  }
+  if (condition.equals("shuffle")) {
+    if (x.getPointsFinalScore() > y.getPointsFinalScore()) {
+      println("Both player forfeit their turns. Player 1 wins with "+x.getPointsFinalScore()+" points to "+y.getPointsFinalScore()+" points!");
+    } else if (y.getPointsFinalScore() > x.getPointsFinalScore()) {
+      println("Both player forfeit their turns. Player 2 wins with "+y.getPointsFinalScore()+" points to "+x.getPointsFinalScore()+" points!");
+    } else {
+      println("Both player forfeit their turns. The game ends in a draw!("+x.getPointsFinalScore()+" points to "+y.getPointsFinalScore()+" points)");
+    }
+  }
 }

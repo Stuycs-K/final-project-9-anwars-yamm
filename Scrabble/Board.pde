@@ -280,10 +280,12 @@ public class Board {
     int rowBig = coords[2];
     int colBig = coords[3];
     if (colSmall == colBig) {
+      if(!tileCheckVert(rowSmall, colSmall))return false;
       for (; rowSmall<=rowBig; rowSmall++) {
         if (!tileCheckHoriz(rowSmall, colSmall))return false;
       }
     } else {
+      if(!tileCheckHoriz(rowSmall, colSmall))return false;
       for (; colSmall<=colBig; colSmall++) {
         if (!tileCheckVert(rowSmall, colSmall))return false;
       }
