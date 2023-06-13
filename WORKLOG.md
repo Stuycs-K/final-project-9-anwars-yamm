@@ -40,6 +40,9 @@ Implementing game end condition, need to fix issue with game freezing when hands
 ### date 6/10
 Fixed game end condition, now properly terminates when a hand is 0 and there are no tiles in the bag. Check out weird bug that happened where hand got > 7 tiles.
 
+### date 6/11
+Finalized updated prototype and looked over final code.
+
 ## GROUP MEMBER 2(Mason)
 
 ### date 5/22
@@ -119,3 +122,8 @@ adding endgame event
 
 ### date 6/11
 added cheat cases
+
+
+### FINAL PROJECT FUNCTIONALITY
+#Bugs and broken features
+Clicking enter while a tile is being dragged ends up filling up the inventory while keeping the dragged tile at the cursor. This means that a player can have more than 7 tiles in their hand at a time. Not necessarily a broken feature, as the enter key should only be pressed at the end of certain actions according to the instructions, but it can cause some unintentional situations.
