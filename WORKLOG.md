@@ -40,6 +40,9 @@ Implementing game end condition, need to fix issue with game freezing when hands
 ### date 6/10
 Fixed game end condition, now properly terminates when a hand is 0 and there are no tiles in the bag. Check out weird bug that happened where hand got > 7 tiles.
 
+### date 6/11
+Finalized updated prototype and looked over final code.
+
 ## GROUP MEMBER 2(Mason)
 
 ### date 5/22
@@ -94,3 +97,33 @@ Some more rules applied to scrabble, user must incorporate a previously used til
 ### date 6/7
 
 all letter premium tiles are now implemented, code trimmed and reorganized.
+
+### date 6/8
+
+game now displays letter that player is moving to board
+added checking for adjacent conflicts feature to when the player is confirming their word
+added shuffle feature, clicking on the board without a selected piece shuffles the player's remaining tiles and ends their turn
+
+### date 6/9
+
+made changes on what clicking on stuff while already holding a tile does:
+if a player is holding a tile and clicks on another one of thier tiles, it will swap the selected tiles,
+if a player is holding a tile and clicks on a tile they placed during thier turn that is already on the board, it will swap out the board tile and the selected one
+if a player is holding a tile and clicks on an empty part of thier inventory, it will place the tile back into the inventory
+if a player isnt holding a tile and clicks on a previously placed tile from thier turn, they will pick up that tile
+if a player isnt holding a tile and clicks on a blank part of the board, the player's hand is shuffled
+
+### date 6/10
+
+made some aesthetic changes
+allowed the user to deselect the submission indicators and reposition
+merged Shaon's end game code
+adding endgame event
+
+### date 6/11
+added cheat cases
+
+
+### FINAL PROJECT FUNCTIONALITY
+#Bugs and broken features
+Clicking enter while a tile is being dragged ends up filling up the inventory while keeping the dragged tile at the cursor. This means that a player can have more than 7 tiles in their hand at a time. Not necessarily a broken feature, as the enter key should only be pressed at the end of certain actions according to the instructions, but it can cause some unintentional situations.

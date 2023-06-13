@@ -14,12 +14,12 @@ public class Inventory {
   
   public void addNewRep(ArrayList<Letter> bag, int repeat, char letter) {
     for (; repeat>0; repeat--) {
-      int[] c1 = {0, 0};
-      bag.add(new Letter(c1, false, letter));
+      bag.add(new Letter(letter));
       //repeats mutator method to add tiles to hand
     }
   }
   public Letter remove(int index) {
+    if (index>=hand.size()) return null;
     return hand.remove(index);
     //mutator method to remove tiles from hand
   }
@@ -27,6 +27,9 @@ public class Inventory {
   public int getSize() {
     return hand.size();
     //accessor method to return size of hand
+  }
+  public void shuffle(){
+    Collections.shuffle(hand);
   }
 
   public void hand(ArrayList<Letter> newHand) {
