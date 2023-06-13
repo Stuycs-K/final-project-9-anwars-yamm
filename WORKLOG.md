@@ -141,5 +141,5 @@ displays word created and the action value
 Tracks selected tiles with an indicator  
 Cheats for quick testing  
 
-##Bugs and broken features
+## Bugs and broken features
 Clicking enter while a tile is being dragged ends up filling up the inventory while keeping the dragged tile at the cursor. This means that a player can have more than 7 tiles in their hand at a time. Not necessarily a broken feature, as the enter key should only be pressed at the end of certain actions according to the instructions, but it can cause some unintentional situations.
