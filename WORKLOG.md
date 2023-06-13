@@ -123,7 +123,23 @@ adding endgame event
 ### date 6/11
 added cheat cases
 
+# Dev Log
 
-### FINAL PROJECT FUNCTIONALITY
-#Bugs and broken features
+## Working features
+Dictionary of working words  
+Checking complete words against the dictionary(including blanks)  
+Checking if words create conflict with existing words, including adjacent connections  
+Mouse based functionality:  
+Clicking tiles, placing onto nearest board tiles  
+Able to deselect anything and mobility in moving pieces around(can pick up and put down anywhere)  
+Able to distinguish between letters placed in the active turn vs the turns before it  
+Scoring points based on both word multipliers and letter multipliers, also stacking multipliers  
+Automatic inventory refill  
+Shuffle and random inventory tiles  
+Ending game states(both forfeited turns and empty hand)  
+displays word created and the action value  
+Tracks selected tiles with an indicator  
+Cheats for quick testing  
+
+##Bugs and broken features
 Clicking enter while a tile is being dragged ends up filling up the inventory while keeping the dragged tile at the cursor. This means that a player can have more than 7 tiles in their hand at a time. Not necessarily a broken feature, as the enter key should only be pressed at the end of certain actions according to the instructions, but it can cause some unintentional situations.
