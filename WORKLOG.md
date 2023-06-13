@@ -122,3 +122,21 @@ adding endgame event
 
 ### date 6/11
 added cheat cases
+
+# Dev Log
+
+## Working features
+Dictionary of working words  
+Checking complete words against the dictionary(including blanks)  
+Checking if words create conflict with existing words, including adjacent connections  
+Mouse based functionality:  
+Clicking tiles, placing onto nearest board tiles  
+Able to deselect anything and mobility in moving pieces around(can pick up and put down anywhere)  
+Able to distinguish between letters placed in the active turn vs the turns before it  
+Scoring points based on both word multipliers and letter multipliers, also stacking multipliers  
+Automatic inventory refill  
+Shuffle and random inventory tiles  
+Ending game states(both forfeited turns and empty hand)  
+displays word created and the action value  
+Tracks selected tiles with an indicator  
+Cheats for quick testing  
